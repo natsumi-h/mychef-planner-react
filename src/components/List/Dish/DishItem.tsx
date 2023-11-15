@@ -1,6 +1,4 @@
 import { Box, Divider, Flex } from "@chakra-ui/react";
-// import { DishItemButtons } from "./DishItemButtons";
-// import { DishType } from "./types";
 import React, { FC } from "react";
 
 type DishItemProps = {

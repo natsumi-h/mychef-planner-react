@@ -47,6 +47,7 @@ export const FridgeContext = createContext<{
 }>(initialContext);
 
 export const FridgeContextProvider = ({ children }: ReactChildren) => {
+  
   const { user } = useContext(AuthContext);
   const uid = user?.uid;
   const [items, setItems] = useState<MyItems>([]);

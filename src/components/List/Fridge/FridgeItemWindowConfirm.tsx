@@ -31,9 +31,6 @@ export const FridgeItemWindowConfirm: FC<WindowConfirmProps> = ({
 
   const onClickHandler = async () => {
     setButtonLoading(true);
-    // if (type === "fridge") {
-    //   await addToFridgeHandler(item);
-    // }
     if (type === "delete") {
       await clickTrashHandler(item);
     }

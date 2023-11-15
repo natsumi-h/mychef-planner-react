@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { MainBox } from "../components/Layout/MainBox";
 import { Fridge } from "../components/List/Fridge/Fridge";
-import { ListTabs } from "./Tabs";
+import { ListTabs } from "../components/List/ListTabs";
 import { FridgeContextProvider } from "../context/FridgeContext";
 
 export const FridgePage = () => {

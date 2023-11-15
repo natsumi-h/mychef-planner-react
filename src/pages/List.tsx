@@ -1,6 +1,6 @@
 import { Miscellaneous } from "../components/List/Miscellaneous/Miscellaneous";
 import { MainBox } from "../components/Layout/MainBox";
-import { ListTabs } from "./Tabs";
+import { ListTabs } from "../components/List/ListTabs";
 import { Flex } from "@chakra-ui/react";
 import { MiscellaneousContextProvider } from "../context/MiscellaneousContext";
 import { DishListContextProvider } from "../context/DishListContext";
