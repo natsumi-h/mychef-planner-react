@@ -4,9 +4,7 @@ import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
 import { AuthContext } from "./AuthContext";
 
-
-
-type FavoriteRecipe = {
+export type FavoriteRecipe = {
   recipeId: number;
   title: string;
   image: string;
@@ -14,7 +12,7 @@ type FavoriteRecipe = {
 };
 
 const initialContext = {
-  recipes: [
+  favRecipes: [
     {
       recipeId: 0,
       userId: "",
@@ -48,7 +46,7 @@ const initialContext = {
 
 // 初期値を設定
 export const FavoriteRecipeContext = createContext<{
-  recipes: FavoriteRecipe[];
+  favRecipes: FavoriteRecipe[];
   error: string;
   loading: boolean;
   getFavRecipes: () => Promise<void>;
@@ -65,7 +63,7 @@ export const FavoriteRecipeContext = createContext<{
 
 export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   const { user } = useContext(AuthContext);
-  const [recipes, setRecipes] = useState<FavoriteRecipe[]>([
+  const [favRecipes, setFavRecipes] = useState<FavoriteRecipe[]>([
     {
       recipeId: 0,
       title: "",
@@ -97,7 +95,7 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
         (record: { fields: FavoriteRecipe }) =>
           record.fields.userId === user?.uid
       );
-      setRecipes(
+      setFavRecipes(
         filteredData.map((record: { fields: FavoriteRecipe }) => record.fields)
       );
     } catch (err: unknown) {
@@ -108,7 +106,7 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   };
 
   const getFavRecipesIdArr = () => {
-    return recipes.map((recipe) => recipe.recipeId);
+    return favRecipes.map((recipe) => recipe.recipeId);
   };
 
   const deleteFavRecipe = async (recipeId: number) => {
@@ -191,7 +189,7 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   return (
     <FavoriteRecipeContext.Provider
       value={{
-        recipes,
+        favRecipes,
         error,
         loading,
         getFavRecipes,

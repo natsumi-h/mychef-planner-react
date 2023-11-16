@@ -10,9 +10,5 @@ type Props = {
 export const ProtectedRoute = ({ children, redirectTo }: Props) => {
   const { user } = useContext(AuthContext);
 
-  if (!user) {
-    return <Signin redirectTo={redirectTo} />;
-  }
-  
-  return children;
+  return <>{user ? children : <Signin redirectTo={redirectTo} />}</>;
 };

@@ -6,13 +6,13 @@ import { AuthContextProvider } from "./context/AuthContext.tsx";
 import { Layout } from "./components/Layout/Layout.tsx";
 import { Favorite } from "./pages/Favorite.tsx";
 import { List } from "./pages/List.tsx";
-import {  FridgePage } from "./pages/Fridge.tsx";
+import { FridgePage } from "./pages/Fridge.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Home } from "./pages/Home.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.tsx";
 import { SingleRecipe } from "./pages/SingleRecipe.tsx";
 import "@splidejs/splide/css";
-// import { Signin } from "./pages/Signin.tsx";
+import { Signin } from "./pages/Signin.tsx";
 import { FavoriteRecipeContextProvider } from "./context/FavoriteRecipeContext.tsx";
 // import "@splidejs/react-splide/css";
 
@@ -25,10 +25,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      // {
-      //   path: "signin",
-      //   element: <Signin />,
-      // },
+      {
+        path: "signin",
+        element: <Signin redirectTo="/" />,
+      },
       {
         path: "recipe/:id/",
         element: <SingleRecipe />,

@@ -1,16 +1,13 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { Link } from "./Link";
 import { FavoriteButton } from "./FavoriteButton";
+import { RecipeCardType } from "../types/types";
 
-type RecipeProps = {
-  recipe: {
-    id: number;
-    title: string;
-    image: string;
-  };
+type RecipeCardProps = {
+  recipe: RecipeCardType;
 };
 
-export const RecipeCard = ({ recipe }: RecipeProps) => {
+export const RecipeCard = ({ recipe }: RecipeCardProps) => {
   return (
     <Box
       maxW="sm"
