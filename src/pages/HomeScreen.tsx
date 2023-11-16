@@ -17,7 +17,7 @@ export const SearchInputSchema = yup.object({
 
 export type SearchInputType = yup.InferType<typeof SearchInputSchema>;
 
-export const Home = () => {
+export const HomeScreen = () => {
   const methods = useForm<SearchInputType>({
     resolver: yupResolver(SearchInputSchema),
   });

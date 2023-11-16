@@ -10,29 +10,17 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
-// import { useContext, useEffect, useState } from "react";
-// import { useLocation } from "react-router-dom";
-// import { AuthContext } from "../context/AuthContext";
-// import { Signin } from "./Signin";
-// import {
-//   spoonacularRoot,
-//   spoonacularApiKey,
-//   airTableRoot,
-//   airTableBaseId,
-//   airTableApiKey,
-// } from "../config/config.js";
-// import { useShowToast } from "../hooks/useShowToast.js";
-import { MainBox } from "../components/Layout/MainBox.js";
 import { FiUsers } from "react-icons/fi";
 import { LuTimer } from "react-icons/lu";
-import { FavoriteButton } from "../components/FavoriteButton.js";
-import { useSingleRecipe } from "../hooks/useSingleRecipe.js";
-import { AddToListbutton } from "../components/SingleRecipe/AddToListbutton.js";
+import { FavoriteButton } from "../FavoriteButton";
+import { useContext } from "react";
+import { SingleRecipeContext } from "../../context/SingleRecipeContext";
+import { AddToListbutton } from "./AddToListbutton";
 
 // http://localhost:5173/recipe/639606
 
 export const SingleRecipe = () => {
-  const { recipe, isLoading, error } = useSingleRecipe();
+  const { recipe, isLoading, error } = useContext(SingleRecipeContext);
   const {
     id,
     image,
@@ -47,7 +35,7 @@ export const SingleRecipe = () => {
   });
 
   return (
-    <MainBox>
+    <>
       {/* {signInMode && <Signin redirectTo={`/recipe/${id}`} />} */}
       {/* {!signInMode && ( */}
       <>
@@ -128,6 +116,6 @@ export const SingleRecipe = () => {
         )}
       </>
       {/* )} */}
-    </MainBox>
+    </>
   );
 };

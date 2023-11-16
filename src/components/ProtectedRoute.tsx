@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Signin } from "../pages/Signin";
+import { SigninScreen } from "../pages/SigninScreen";
 
 type Props = {
   children: React.ReactNode;
@@ -10,5 +10,5 @@ type Props = {
 export const ProtectedRoute = ({ children, redirectTo }: Props) => {
   const { user } = useContext(AuthContext);
 
-  return <>{user ? children : <Signin redirectTo={redirectTo} />}</>;
+  return <>{user ? children : <SigninScreen redirectTo={redirectTo} />}</>;
 };

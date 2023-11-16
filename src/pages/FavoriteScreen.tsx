@@ -1,7 +1,7 @@
 import { FavoriteRecipeList } from "../components/Favorite/FavoriteRecipeList";
 import { MainBox } from "../components/Layout/MainBox";
 
-export const Favorite = () => {
+export const FavoriteScreen = () => {
   return (
     <MainBox>
       <FavoriteRecipeList />

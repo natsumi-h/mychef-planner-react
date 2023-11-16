@@ -6,7 +6,7 @@ import { MiscellaneousContextProvider } from "../context/MiscellaneousContext";
 import { DishListContextProvider } from "../context/DishListContext";
 import { DishList } from "../components/List/Dish/DishList";
 
-export const List = () => {
+export const ListScreen = () => {
   return (
     <MainBox>
       <ListTabs />

@@ -7,8 +7,8 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useSingleRecipe } from "../../hooks/useSingleRecipe";
+import React, { useContext, useState } from "react";
+import { SingleRecipeContext } from "../../context/SingleRecipeContext";
 
 type WindowConfirmProps = {
   isOpen: boolean;
@@ -20,7 +20,7 @@ export const AddToListWindowConfirm = ({
   onClose,
 }: WindowConfirmProps) => {
   const cancelRef = React.useRef<HTMLButtonElement>(null);
-  const { handleSaveIngredients } = useSingleRecipe();
+  const { handleSaveIngredients } = useContext(SingleRecipeContext);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
 
   const confirmHandler = async () => {

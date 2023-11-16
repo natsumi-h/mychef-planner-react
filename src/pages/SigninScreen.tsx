@@ -13,7 +13,7 @@ type Props = {
   redirectTo: string;
 };
 
-export const Signin = ({ redirectTo }: Props) => {
+export const SigninScreen = ({ redirectTo }: Props) => {
   const { googleSignin } = useContext(AuthContext);
 
   const navigate = useNavigate();

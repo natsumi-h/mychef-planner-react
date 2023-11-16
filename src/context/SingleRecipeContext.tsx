@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import {
@@ -9,10 +9,47 @@ import {
   airTableApiKey,
 } from "../config/config.js";
 import { useShowToast } from "../hooks/useShowToast.js";
-import { Recipe } from "../types/types.js";
+import { ReactChildren, Recipe } from "../types/types.js";
 import { DishFields, DishType } from "../components/List/Dish/types.js";
 
-export const useSingleRecipe = () => {
+const initialContext = {
+  recipe: {
+    id: 0,
+    image: "",
+    title: "",
+    servings: 0,
+    readyInMinutes: 0,
+    extendedIngredients: [],
+    instructions: "",
+  },
+  error: "",
+  isLoading: true,
+  handleSaveIngredients: () => {
+    return new Promise<void>((resolve) => {
+      resolve();
+    });
+  },
+  isRecipeInDishList: false,
+  dishList: [],
+  checkIfRecipeIsInDishList: () => {
+    return new Promise<void>((resolve) => {
+      resolve();
+    });
+  },
+};
+
+// 初期値を設定
+export const SingleRecipeContext = createContext<{
+  recipe: Recipe;
+  error: string;
+  isLoading: boolean;
+  handleSaveIngredients: () => Promise<void>;
+  isRecipeInDishList: boolean;
+  dishList: DishType[];
+  checkIfRecipeIsInDishList: () => Promise<void>;
+}>(initialContext);
+
+export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   const location = useLocation();
   const pathId = location.pathname.split("/")[2];
   const pathIdNum = parseInt(pathId);
@@ -121,17 +158,23 @@ export const useSingleRecipe = () => {
   };
 
   useEffect(() => {
-    console.log("getting recipe");
     getRecipe();
+    checkIfRecipeIsInDishList();
   }, [user]);
 
-  return {
-    recipe,
-    error,
-    isLoading,
-    handleSaveIngredients,
-    isRecipeInDishList,
-    dishList,
-    checkIfRecipeIsInDishList,
-  };
+  return (
+    <SingleRecipeContext.Provider
+      value={{
+        recipe,
+        error,
+        isLoading,
+        handleSaveIngredients,
+        isRecipeInDishList,
+        dishList,
+        checkIfRecipeIsInDishList,
+      }}
+    >
+      {children}
+    </SingleRecipeContext.Provider>
+  );
 };

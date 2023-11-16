@@ -4,15 +4,15 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import React from "react";
 import { AuthContextProvider } from "./context/AuthContext.tsx";
 import { Layout } from "./components/Layout/Layout.tsx";
-import { Favorite } from "./pages/Favorite.tsx";
-import { List } from "./pages/List.tsx";
-import { FridgePage } from "./pages/Fridge.tsx";
+import { FavoriteScreen } from "./pages/FavoriteScreen.tsx";
+import { ListScreen } from "./pages/ListScreen.tsx";
+import { FridgeScreen } from "./pages/FridgeScreen.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { Home } from "./pages/Home.tsx";
+import { HomeScreen } from "./pages/HomeScreen.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.tsx";
-import { SingleRecipe } from "./pages/SingleRecipe.tsx";
-import "@splidejs/splide/css";
-import { Signin } from "./pages/Signin.tsx";
+import { SingleRecipeScreen } from "./pages/SingleRecipeScreen.tsx";
+// import "@splidejs/splide/css";
+import { SigninScreen } from "./pages/SigninScreen.tsx";
 import { FavoriteRecipeContextProvider } from "./context/FavoriteRecipeContext.tsx";
 // import "@splidejs/react-splide/css";
 
@@ -23,21 +23,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <HomeScreen />,
       },
       {
         path: "signin",
-        element: <Signin redirectTo="/" />,
+        element: <SigninScreen redirectTo="/" />,
       },
       {
         path: "recipe/:id/",
-        element: <SingleRecipe />,
+        element: <SingleRecipeScreen />,
       },
       {
         path: "favorite",
         element: (
           <ProtectedRoute redirectTo="/favorite">
-            <Favorite />
+            <FavoriteScreen />
           </ProtectedRoute>
         ),
       },
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         path: "list",
         element: (
           <ProtectedRoute redirectTo="/list">
-            <List />
+            <ListScreen />
           </ProtectedRoute>
         ),
       },
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         path: "fridge",
         element: (
           <ProtectedRoute redirectTo="/fridge">
-            <FridgePage />
+            <FridgeScreen />
           </ProtectedRoute>
         ),
       },

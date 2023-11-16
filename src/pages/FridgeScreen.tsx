@@ -4,7 +4,7 @@ import { Fridge } from "../components/List/Fridge/Fridge";
 import { ListTabs } from "../components/List/ListTabs";
 import { FridgeContextProvider } from "../context/FridgeContext";
 
-export const FridgePage = () => {
+export const FridgeScreen = () => {
   return (
     <MainBox>
       <ListTabs />
