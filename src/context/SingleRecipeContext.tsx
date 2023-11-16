@@ -12,6 +12,16 @@ import { useShowToast } from "../hooks/useShowToast.js";
 import { ReactChildren, Recipe } from "../types/types.js";
 import { DishFields, DishType } from "../components/List/Dish/types.js";
 
+type SingleRecipeContextType = {
+  recipe: Recipe;
+  error: string;
+  isLoading: boolean;
+  handleSaveIngredients: () => Promise<void>;
+  isRecipeInDishList: boolean;
+  dishList: DishType[];
+  checkIfRecipeIsInDishList: () => Promise<void>;
+};
+
 const initialContext = {
   recipe: {
     id: 0,
@@ -39,15 +49,8 @@ const initialContext = {
 };
 
 // 初期値を設定
-export const SingleRecipeContext = createContext<{
-  recipe: Recipe;
-  error: string;
-  isLoading: boolean;
-  handleSaveIngredients: () => Promise<void>;
-  isRecipeInDishList: boolean;
-  dishList: DishType[];
-  checkIfRecipeIsInDishList: () => Promise<void>;
-}>(initialContext);
+export const SingleRecipeContext =
+  createContext<SingleRecipeContextType>(initialContext);
 
 export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   const location = useLocation();

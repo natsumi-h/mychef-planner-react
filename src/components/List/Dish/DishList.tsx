@@ -6,7 +6,6 @@ import { Text } from "@chakra-ui/react";
 export const DishList = () => {
   const { dishList, error, loading } = useContext(DishListContext);
 
-  
   return (
     <>
       {error ? (
@@ -14,7 +13,8 @@ export const DishList = () => {
       ) : loading ? (
         <></>
       ) : dishList?.length === 0 ? (
-        <Text>You have no items yet!</Text>
+        // <Text>You have no items yet!</Text>
+        <></>
       ) : (
         dishList?.map((item) => {
           return <Dish key={item.id} dish={item} />;

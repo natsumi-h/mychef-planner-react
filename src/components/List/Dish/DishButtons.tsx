@@ -5,12 +5,15 @@ import { DishWindowConfirm } from "./DishWindowConfirm";
 import { DishType } from "./types";
 import { FC } from "react";
 
-type DishProps = {
+type DishButtonsProps = {
   dish: DishType;
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export const DishButtons: FC<DishProps> = ({ dish, setIngredientsArr }) => {
+export const DishButtons: FC<DishButtonsProps> = ({
+  dish,
+  setIngredientsArr,
+}) => {
   const {
     isOpen: isOpenModal,
     onOpen: onOpenModal,

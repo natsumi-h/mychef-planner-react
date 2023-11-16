@@ -3,7 +3,6 @@ import { MyItemButtons } from "./MyItemButtons";
 import { MyItemType } from "./types";
 import { FC } from "react";
 
-
 type MyItemProps = {
   item: MyItemType;
 };

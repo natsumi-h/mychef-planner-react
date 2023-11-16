@@ -1,5 +1,5 @@
 import { Button, Flex } from "@chakra-ui/react";
-import { Link } from "../Link";
+import { Link } from "../Parts/Link";
 import { useLocation } from "react-router-dom";
 
 export const ListTabs = () => {
@@ -10,8 +10,6 @@ export const ListTabs = () => {
   return (
     <Flex
       gap="20px"
-      //   px={{ base: 0, md: "20px" }}
-      //   py={"20px"}
       justifyContent={"start"}
       maxW={"600px"}
       mx={"auto"}

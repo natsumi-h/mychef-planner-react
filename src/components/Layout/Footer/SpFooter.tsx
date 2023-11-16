@@ -1,6 +1,6 @@
 import { Box, Flex, Icon, IconButton } from "@chakra-ui/react";
 import { InnerBox } from "../InnerBox";
-import { Link } from "../../Link";
+import { Link } from "../../Parts/Link";
 import { FiHeart, FiSearch, FiShoppingCart } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
 
@@ -79,7 +79,6 @@ export const SpFooter = () => {
                 }}
               />
             </Link>
-
           </Flex>
         </Box>
       </InnerBox>

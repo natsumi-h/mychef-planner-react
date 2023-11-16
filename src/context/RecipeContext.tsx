@@ -2,12 +2,20 @@ import { createContext, useState } from "react";
 import { spoonacularApiKey, spoonacularRoot } from "../config/config";
 import { ReactChildren } from "../types/types";
 
-
-
 type Recipe = {
   id: number;
   title: string;
   image: string;
+};
+
+type RecipeContextType = {
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  recipes: Recipe[];
+  error: string;
+  loading: boolean;
+  handleSearchRecipe: (value: string) => Promise<void>;
+  getRecipes: (value: string) => Promise<void>;
 };
 
 const initialContext = {
@@ -35,15 +43,7 @@ const initialContext = {
 };
 
 // 初期値を設定
-export const RecipeContext = createContext<{
-  searchValue: string;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  recipes: Recipe[];
-  error: string;
-  loading: boolean;
-  handleSearchRecipe: (value: string) => Promise<void>;
-  getRecipes: (value: string) => Promise<void>;
-}>(initialContext);
+export const RecipeContext = createContext<RecipeContextType>(initialContext);
 
 export const RecipeContextProvider = ({ children }: ReactChildren) => {
   const [searchValue, setSearchValue] = useState<string>("");

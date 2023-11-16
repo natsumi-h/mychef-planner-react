@@ -7,24 +7,31 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 
 type WindowConfirmProps = {
   isOpen: boolean;
   onClose: () => void;
   header: string;
   confirmHandler: () => void;
-  action: "add to favorite" | "remove from favorite" | "delete";
+  type: "add" | "remove";
 };
 
-export const WindowConfirm = ({
-  action,
+export const FavoriteWindowConfirm = ({
+  type,
   isOpen,
   onClose,
   header,
   confirmHandler,
 }: WindowConfirmProps) => {
   const cancelRef = React.useRef<HTMLButtonElement>(null);
+  const [buttonLoading, setButtonLoading] = useState<boolean>(false);
+
+  const handleOnClick = async () => {
+    setButtonLoading(true);
+    await confirmHandler();
+    setButtonLoading(false);
+  };
 
   return (
     <AlertDialog
@@ -35,9 +42,7 @@ export const WindowConfirm = ({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {action === "delete"
-              ? `Delete ${header}`
-              : action === "remove from favorite"
+            {type === "remove"
               ? `Remove ${header} from favorite`
               : `Add ${header} to favorite`}
           </AlertDialogHeader>
@@ -49,15 +54,12 @@ export const WindowConfirm = ({
               Cancel
             </Button>
             <Button
-              colorScheme={action === "delete" ? `red` : `teal`}
-              onClick={confirmHandler}
+              colorScheme={type === "remove" ? `red` : `teal`}
+              onClick={handleOnClick}
               ml={3}
+              isLoading={buttonLoading}
             >
-              {action === "delete"
-                ? "Delete"
-                : action === "remove from favorite"
-                ? "Remove"
-                : "Add"}
+              {type === "remove" ? "Remove" : "Add"}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

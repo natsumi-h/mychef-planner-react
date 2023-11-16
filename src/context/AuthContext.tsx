@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import React, { FC, createContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
   User,
@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 
-type Type = {
+type AuthContextProviderType = {
   children: React.ReactNode;
 };
 
@@ -26,7 +26,9 @@ export const AuthContext = createContext<AuthContextType>({
   setUser: () => {},
 });
 
-export const AuthContextProvider = ({ children }: Type) => {
+export const AuthContextProvider: FC<AuthContextProviderType> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(auth.currentUser);
 
   const googleSignin = async () => {

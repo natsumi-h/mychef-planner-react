@@ -5,6 +5,17 @@ import { MyItemType, MyItems } from "../components/List/Miscellaneous/types";
 import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
 
+type FridgeContextType = {
+  items: MyItems;
+  setItems: React.Dispatch<React.SetStateAction<MyItems>>;
+  getMyList: () => Promise<void>;
+  error: string;
+  loading: boolean;
+  clickCreateSaveHandler: (ingredient: string) => Promise<void>;
+  clickEditSaveHandler: (ingredient: string, item: MyItemType) => Promise<void>;
+  clickTrashHandler: (item: MyItemType) => Promise<void>;
+};
+
 const initialContext = {
   items: [],
   setItems: () => {
@@ -35,19 +46,9 @@ const initialContext = {
 };
 
 // 初期値を設定
-export const FridgeContext = createContext<{
-  items: MyItems;
-  setItems: React.Dispatch<React.SetStateAction<MyItems>>;
-  getMyList: () => Promise<void>;
-  error: string;
-  loading: boolean;
-  clickCreateSaveHandler: (ingredient: string) => Promise<void>;
-  clickEditSaveHandler: (ingredient: string, item: MyItemType) => Promise<void>;
-  clickTrashHandler: (item: MyItemType) => Promise<void>;
-}>(initialContext);
+export const FridgeContext = createContext<FridgeContextType>(initialContext);
 
 export const FridgeContextProvider = ({ children }: ReactChildren) => {
-  
   const { user } = useContext(AuthContext);
   const uid = user?.uid;
   const [items, setItems] = useState<MyItems>([]);
@@ -60,14 +61,11 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
     setItems([]);
     setLoading(true);
     try {
-      const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Fridge`,
-        {
-          headers: {
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-        }
-      );
+      const res = await fetch(`${airTableRoot}${airTableBaseId}/Fridge`, {
+        headers: {
+          Authorization: `Bearer ${airTableApiKey}`,
+        },
+      });
       const data = await res.json();
 
       const filteredItems = data.records.filter(
@@ -91,22 +89,19 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   const clickCreateSaveHandler = async (ingredient: string) => {
     if (!ingredient) return;
     try {
-      const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Fridge/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${airTableApiKey}`,
+      const res = await fetch(`${airTableRoot}${airTableBaseId}/Fridge/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${airTableApiKey}`,
+        },
+        body: JSON.stringify({
+          fields: {
+            ingredient: ingredient,
+            userId: uid,
           },
-          body: JSON.stringify({
-            fields: {
-              ingredient: ingredient,
-              userId: uid,
-            },
-          }),
-        }
-      );
+        }),
+      });
       const data = await res.json();
       setItems([data, ...items]);
       showToast("success", "Item added!");

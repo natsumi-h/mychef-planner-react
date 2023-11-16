@@ -12,12 +12,10 @@ import {
 } from "@chakra-ui/react";
 import { FiUsers } from "react-icons/fi";
 import { LuTimer } from "react-icons/lu";
-import { FavoriteButton } from "../FavoriteButton";
+import { FavoriteButton } from "../Favorite/FavoriteButton";
 import { useContext } from "react";
 import { SingleRecipeContext } from "../../context/SingleRecipeContext";
 import { AddToListbutton } from "./AddToListbutton";
-
-// http://localhost:5173/recipe/639606
 
 export const SingleRecipe = () => {
   const { recipe, isLoading, error } = useContext(SingleRecipeContext);
@@ -61,7 +59,7 @@ export const SingleRecipe = () => {
 
               <FavoriteButton
                 recipe={{
-                  recipeId: id,
+                  id: id,
                   title,
                   image,
                 }}

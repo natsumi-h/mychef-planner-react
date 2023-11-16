@@ -11,7 +11,7 @@ import React, { FC, useContext, useState } from "react";
 import { DishListContext } from "../../../context/DishListContext";
 import { DishType } from "./types";
 
-type WindowConfirmProps = {
+type DishWindowConfirmProps = {
   isOpen: boolean;
   onClose: () => void;
   type: "delete dish" | "delete item" | "fridge";
@@ -20,7 +20,7 @@ type WindowConfirmProps = {
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export const DishWindowConfirm: FC<WindowConfirmProps> = ({
+export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
   isOpen,
   onClose,
   dish,

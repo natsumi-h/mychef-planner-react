@@ -1,14 +1,15 @@
 import { Box, Flex, Heading, Icon, IconButton, Spacer } from "@chakra-ui/react";
 import { InnerBox } from "../InnerBox";
 import { FiHeart, FiSearch, FiShoppingCart } from "react-icons/fi";
-import { Link } from "../../Link";
+import { Link } from "../../Parts/Link";
 import { UserIcon } from "./UserIcon";
 import { useLocation } from "react-router-dom";
 import { FaUtensils } from "react-icons/fa6";
 
 export const PcHeader = () => {
   const location = useLocation();
-  const list = location.pathname.includes("/list");
+  const list =
+    location.pathname.includes("/list") || location.pathname.includes("fridge");
   const favorite = location.pathname.includes("favorite");
   const others = !list && !favorite;
 

@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { DishItem } from "./DishItem";
-import { Link } from "../../Link";
+import { Link } from "../../Parts/Link";
 import { DishButtons } from "./DishButtons";
 import { FC, useState } from "react";
 import { DishType } from "./types";

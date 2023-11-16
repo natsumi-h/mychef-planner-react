@@ -1,37 +1,32 @@
 import { Icon, IconButton, useDisclosure } from "@chakra-ui/react";
-import { WindowConfirm } from "./WindowConfirm";
+import { FavoriteWindowConfirm } from "./FavoriteWindowConfirm";
 import { FiHeart } from "react-icons/fi";
 
-import { useShowToast } from "../hooks/useShowToast";
+import { useShowToast } from "../../hooks/useShowToast";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { FavoriteRecipeContext } from "../context/FavoriteRecipeContext";
+import { AuthContext } from "../../context/AuthContext";
+import { FavoriteRecipeContext } from "../../context/FavoriteRecipeContext";
 import { FaHeart } from "react-icons/fa";
+import { RecipeCardProps } from "../Parts/RecipeCard";
 
-type FavRecipe = {
-  recipe: {
-    recipeId: number;
-    title: string;
-    image: string;
-  };
-};
-
-export const FavoriteButton = ({ recipe }: FavRecipe) => {
+export const FavoriteButton = ({ recipe }: RecipeCardProps) => {
   const showToast = useShowToast();
   const { user } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { getFavRecipesIdArr, deleteFavRecipe, addToFavorite } = useContext(
+  const { favRecipes, deleteFavRecipe, addToFavorite } = useContext(
     FavoriteRecipeContext
   );
-  const ifRecipeIsFavorite = getFavRecipesIdArr().includes(recipe.recipeId);
+  // const ifRecipeIsFavorite = getFavRecipesIdArr().includes(recipe.recipeId);
+  const ifRecipeIsFavorite = favRecipes.some(
+    (favRecipe) => favRecipe.fields.recipeId === recipe.id
+  );
 
   const onClickFavIcon = () => {
     if (!user) {
       showToast("error", "Please sign in first!");
       return;
     }
-
     onOpen();
   };
 
@@ -41,24 +36,29 @@ export const FavoriteButton = ({ recipe }: FavRecipe) => {
         isRound={true}
         outline={"none"}
         bg={ifRecipeIsFavorite ? "teal" : "transparent"}
-        // bg={"transparent"}
         colorScheme="teal"
         aria-label="Done"
         fontSize="20px"
-        icon={<Icon boxSize={5} as={ifRecipeIsFavorite ? FaHeart: FiHeart} color={"white"}></Icon>}
+        icon={
+          <Icon
+            boxSize={5}
+            as={ifRecipeIsFavorite ? FaHeart : FiHeart}
+            color={"white"}
+          ></Icon>
+        }
         position={"absolute"}
         top={{ base: "3px", md: "8px" }}
         right={{ base: "3px", md: "8px" }}
         onClick={onClickFavIcon}
       />
 
-      <WindowConfirm
+      <FavoriteWindowConfirm
         isOpen={isOpen}
         onClose={onClose}
         confirmHandler={
-          ifRecipeIsFavorite
+          ifRecipeIsFavorite && recipe.id
             ? async () => {
-                await deleteFavRecipe(recipe.recipeId);
+                await deleteFavRecipe(recipe.id);
                 onClose();
               }
             : async () => {
@@ -67,7 +67,7 @@ export const FavoriteButton = ({ recipe }: FavRecipe) => {
               }
         }
         header={recipe.title}
-        action={ifRecipeIsFavorite ? "remove from favorite" : "add to favorite"}
+        type={ifRecipeIsFavorite ? "remove" : "add"}
       />
     </>
   );

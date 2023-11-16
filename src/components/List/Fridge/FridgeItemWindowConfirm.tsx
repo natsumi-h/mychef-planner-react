@@ -11,14 +11,14 @@ import React, { FC, useContext, useState } from "react";
 import { FridgeContext } from "../../../context/FridgeContext";
 import { MyItemType } from "../Miscellaneous/types";
 
-type WindowConfirmProps = {
+type FridgeWindowConfirmProps = {
   isOpen: boolean;
   onClose: () => void;
   item: MyItemType;
   type: "fridge" | "delete";
 };
 
-export const FridgeItemWindowConfirm: FC<WindowConfirmProps> = ({
+export const FridgeItemWindowConfirm: FC<FridgeWindowConfirmProps> = ({
   isOpen,
   onClose,
   item,

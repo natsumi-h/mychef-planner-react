@@ -1,7 +1,7 @@
 import { Box, Flex, Icon, IconButton } from "@chakra-ui/react";
 import { FiGithub, FiLinkedin, FiGlobe } from "react-icons/fi";
 import { InnerBox } from "../InnerBox";
-import { Link } from "../../Link";
+import { Link } from "../../Parts/Link";
 
 export const PcFooter = () => {
   return (
@@ -13,7 +13,6 @@ export const PcFooter = () => {
       display={{ base: "none", md: "block" }}
     >
       <InnerBox>
-        {/* <Center h="100%"> */}
         <Flex columnGap={"15px"} justify={"center"} align={"center"} h={"100%"}>
           <Link to="https://github.com/natsumi-h" target="_blank">
             <IconButton
@@ -57,7 +56,6 @@ export const PcFooter = () => {
             />
           </Link>
         </Flex>
-        {/* </Center> */}
       </InnerBox>
     </Box>
   );

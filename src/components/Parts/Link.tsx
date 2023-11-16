@@ -1,5 +1,6 @@
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
+import { FC } from "react";
 
 type Link = {
   children: React.ReactNode;
@@ -7,7 +8,7 @@ type Link = {
   target?: "_blank" | "_self" | "_parent" | "_top" | undefined;
 };
 
-export const Link = ({ children, to, target }: Link) => {
+export const Link: FC<Link> = ({ children, to, target }) => {
   return (
     <ChakraLink
       as={ReactRouterLink}
@@ -19,12 +20,6 @@ export const Link = ({ children, to, target }: Link) => {
         opacity: "0.8",
         transition: "all 0.3s ease",
       }}
-      // colorScheme={"teal"}
-      //   display="inline-block"
-      //   w="30px"
-      //   h="30px"
-      // bg="secondary"
-      //   borderRadius={"md"}
     >
       {children}
     </ChakraLink>

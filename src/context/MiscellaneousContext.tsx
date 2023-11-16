@@ -5,6 +5,18 @@ import { MyItemType, MyItems } from "../components/List/Miscellaneous/types";
 import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
 
+type MiscellaneousContextType = {
+  items: MyItems;
+  setItems: React.Dispatch<React.SetStateAction<MyItems>>;
+  getMyList: () => Promise<void>;
+  error: string;
+  loading: boolean;
+  clickCreateSaveHandler: (ingredient: string) => Promise<void>;
+  clickEditSaveHandler: (ingredient: string, item: MyItemType) => Promise<void>;
+  clickTrashHandler: (item: MyItemType) => Promise<void>;
+  addToFridgeHandler: (item: MyItemType) => Promise<void>;
+};
+
 const initialContext = {
   items: [],
   setItems: () => {
@@ -40,17 +52,8 @@ const initialContext = {
 };
 
 // 初期値を設定
-export const MiscellaneousContext = createContext<{
-  items: MyItems;
-  setItems: React.Dispatch<React.SetStateAction<MyItems>>;
-  getMyList: () => Promise<void>;
-  error: string;
-  loading: boolean;
-  clickCreateSaveHandler: (ingredient: string) => Promise<void>;
-  clickEditSaveHandler: (ingredient: string, item: MyItemType) => Promise<void>;
-  clickTrashHandler: (item: MyItemType) => Promise<void>;
-  addToFridgeHandler: (item: MyItemType) => Promise<void>;
-}>(initialContext);
+export const MiscellaneousContext =
+  createContext<MiscellaneousContextType>(initialContext);
 
 export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   const { user } = useContext(AuthContext);
@@ -145,7 +148,7 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
           Authorization: `Bearer ${airTableApiKey}`,
         },
       });
-      
+
       setItems((prev) => prev.filter((prevItem) => prevItem.id !== item.id));
       showToast("success", "Item added to your fridge!");
     } catch (error) {

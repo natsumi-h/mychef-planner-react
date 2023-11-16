@@ -5,6 +5,21 @@ import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
 import { DishList, DishType } from "../components/List/Dish/types";
 
+type DishListContextType = {
+  error: string;
+  loading: boolean;
+  dishList: DishList;
+  handleDeleteDish: (dish: DishType) => Promise<void>;
+  clickCreateSaveHandler: (ingredient: string, dish: DishType) => Promise<void>;
+  clickEditSaveHandler: (
+    value: string,
+    dish: DishType,
+    ingredient: string
+  ) => Promise<void>;
+  handleDeleteItem: (dish: DishType, ingredient: string) => Promise<void>;
+  handleAddToFridge: (dish: DishType, ingredient: string) => Promise<void>;
+};
+
 const initialContext = {
   error: "",
   loading: false,
@@ -37,20 +52,8 @@ const initialContext = {
 };
 
 // 初期値を設定
-export const DishListContext = createContext<{
-  error: string;
-  loading: boolean;
-  dishList: DishList;
-  handleDeleteDish: (dish: DishType) => Promise<void>;
-  clickCreateSaveHandler: (ingredient: string, dish: DishType) => Promise<void>;
-  clickEditSaveHandler: (
-    value: string,
-    dish: DishType,
-    ingredient: string
-  ) => Promise<void>;
-  handleDeleteItem: (dish: DishType, ingredient: string) => Promise<void>;
-  handleAddToFridge: (dish: DishType, ingredient: string) => Promise<void>;
-}>(initialContext);
+export const DishListContext =
+  createContext<DishListContextType>(initialContext);
 
 export const DishListContextProvider = ({ children }: ReactChildren) => {
   const { user } = useContext(AuthContext);
@@ -195,7 +198,6 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     // もし、ingredientsArrが空になったら、Itemごと削除する
     // DELETE
     if (newIngredientsArr.length === 0) {
-
       try {
         await fetch(`${airTableRoot}${airTableBaseId}/Item/${dish.id}`, {
           method: "DELETE",
@@ -204,7 +206,6 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
             Authorization: `Bearer ${airTableApiKey}`,
           },
         });
-        // setItemObj(null);
         showToast("success", "Item deleted!");
         setDishList((prev) => prev.filter((i) => i.id !== dish.id));
       } catch (error) {
@@ -251,7 +252,6 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
             Authorization: `Bearer ${airTableApiKey}`,
           },
         });
-        // setItemObj(null);
         // showToast("success", "Item deleted!");
       } catch (error) {
         showToast("error", "Something went wrong!");

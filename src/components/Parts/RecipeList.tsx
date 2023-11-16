@@ -2,17 +2,14 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { RecipeCard } from "./RecipeCard";
 import { SkeltonCard } from "./SkeltonCard";
 import { useContext, useEffect } from "react";
-import { RecipeContext } from "../context/RecipeContext";
-import { FavoriteRecipeContext } from "../context/FavoriteRecipeContext";
+import { RecipeContext } from "../../context/RecipeContext";
 
 export const RecipeList = () => {
   const { error, recipes, loading, getRecipes } = useContext(RecipeContext);
-  const { favUpdated, setFavUpdated } = useContext(FavoriteRecipeContext);
 
   useEffect(() => {
     getRecipes("");
-    setFavUpdated(false);
-  }, [favUpdated]);
+  }, []);
 
   return (
     <>

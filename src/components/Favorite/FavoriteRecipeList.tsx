@@ -1,17 +1,11 @@
-import { SkeltonCard } from "../SkeltonCard";
+import { SkeltonCard } from "../Parts/SkeltonCard";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { RecipeCard } from "../RecipeCard";
-import { useContext, useEffect } from "react";
+import { RecipeCard } from "../Parts/RecipeCard";
+import { useContext } from "react";
 import { FavoriteRecipeContext } from "../../context/FavoriteRecipeContext";
 
 export const FavoriteRecipeList = () => {
-  const { error, favRecipes, loading, getFavRecipes, favUpdated, setFavUpdated } =
-    useContext(FavoriteRecipeContext);
-
-  useEffect(() => {
-    getFavRecipes();
-    setFavUpdated(false);
-  }, [favUpdated]);
+  const { error, favRecipes, loading } = useContext(FavoriteRecipeContext);
 
   return (
     <>
@@ -33,13 +27,13 @@ export const FavoriteRecipeList = () => {
                 ))}
               </>
             )}
-            {favRecipes?.map((recipe) => (
+            {favRecipes?.map((favRecipe) => (
               <RecipeCard
-                key={recipe?.recipeId}
+                key={favRecipe.id}
                 recipe={{
-                  id: recipe?.recipeId,
-                  title: recipe?.title,
-                  image: recipe?.image,
+                  id: favRecipe.fields.recipeId,
+                  title: favRecipe.fields.title,
+                  image: favRecipe.fields.image,
                 }}
               />
             ))}

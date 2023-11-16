@@ -12,13 +12,14 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import * as yup from "yup";
+// import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useState } from "react";
 import { DishListContext } from "../../../context/DishListContext";
 import { DishType } from "./types";
+import { ItemInputSchema, ItemInputType } from "../../../types/types";
 
-type ModalProps = {
+type DishModalProps = {
   ingredient?: string;
   isOpen: boolean;
   onClose: () => void;
@@ -27,15 +28,15 @@ type ModalProps = {
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const ItemInputSchema = yup.object({
-  input: yup
-    .string()
-    .min(3, "Minimum 3 characters are required.")
-    .max(20, "The value can't be more than 20 characters.")
-    .required("This field is required."),
-});
+// const ItemInputSchema = yup.object({
+//   input: yup
+//     .string()
+//     .min(3, "Minimum 3 characters are required.")
+//     .max(20, "The value can't be more than 20 characters.")
+//     .required("This field is required."),
+// });
 
-type ItemInputType = yup.InferType<typeof ItemInputSchema>;
+// type ItemInputType = yup.InferType<typeof ItemInputSchema>;
 
 export const DishModalComponent = ({
   ingredient,
@@ -44,7 +45,7 @@ export const DishModalComponent = ({
   dish,
   type,
   setIngredientsArr,
-}: ModalProps) => {
+}: DishModalProps) => {
   // const initialRef = React.useRef(null);
   // const finalRef = React.useRef(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);

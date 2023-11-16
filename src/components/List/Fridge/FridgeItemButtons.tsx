@@ -6,11 +6,11 @@ import { FridgeItemModal } from "./FridgeItemModal";
 import { FridgeItemType } from "./types";
 
 
-type MyItemButtonsProps = {
+type FridgeItemButtonsProps = {
   item: FridgeItemType;
 };
 
-export const FridgeItemButtons: FC<MyItemButtonsProps> = ({ item }) => {
+export const FridgeItemButtons: FC<FridgeItemButtonsProps> = ({ item }) => {
   const {
     isOpen: isOpenEdit,
     onOpen: onOpenEdit,

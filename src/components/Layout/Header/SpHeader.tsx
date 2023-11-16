@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Icon, Spacer } from "@chakra-ui/react";
 import { InnerBox } from "../InnerBox";
 
-import { Link } from "../../Link";
+import { Link } from "../../Parts/Link";
 import { UserIcon } from "./UserIcon";
 import { FaUtensils } from "react-icons/fa6";
 

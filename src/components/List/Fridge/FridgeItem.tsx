@@ -1,13 +1,13 @@
 import { Box, Divider, Flex } from "@chakra-ui/react";
 import { FC } from "react";
 import { FridgeItemButtons } from "./FridgeItemButtons";
-import { MyItemType } from "../Miscellaneous/types";
+import { FridgeItemType } from "./types";
 
-type MyItemProps = {
-  item: MyItemType;
+type FridgeItemProps = {
+  item: FridgeItemType;
 };
 
-export const FridgeItem: FC<MyItemProps> = ({ item }) => {
+export const FridgeItem: FC<FridgeItemProps> = ({ item }) => {
   return (
     <Box>
       <Flex justify={"space-between"} alignItems={"center"} py={"10px"}>

@@ -9,17 +9,19 @@ import { ListScreen } from "./pages/ListScreen.tsx";
 import { FridgeScreen } from "./pages/FridgeScreen.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { HomeScreen } from "./pages/HomeScreen.tsx";
-import { ProtectedRoute } from "./components/ProtectedRoute.tsx";
+import { ProtectedRoute } from "./components/Layout/ProtectedRoute.tsx";
 import { SingleRecipeScreen } from "./pages/SingleRecipeScreen.tsx";
 // import "@splidejs/splide/css";
 import { SigninScreen } from "./pages/SigninScreen.tsx";
 import { FavoriteRecipeContextProvider } from "./context/FavoriteRecipeContext.tsx";
+import { ErrorPage } from "./pages/ErrorPage.tsx";
 // import "@splidejs/react-splide/css";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
