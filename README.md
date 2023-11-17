@@ -1,5 +1,5 @@
 # 🥕My Chef Planner App🥕
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into elec
+This is a comprehensive web application that seamlessly combines two key functionalities: recipe searching, shopping list management. The aim is to simplify the cooking and grocery shopping process for users by providing a one-stop solution for meal planning and kitchen organization.
 
 ## Live URL
 https://mychef-planner-react.vercel.app/
