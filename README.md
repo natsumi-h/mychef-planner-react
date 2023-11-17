@@ -25,19 +25,10 @@ https://mychef-planner-react.vercel.app/
 * Feature to transfer items from the "to shop" list to an "in fridge" list once purchased, helping track fridge contents.
 
 ## Screenshots
-### Home Page
 ![Screenshot 2023-11-17 at 3 17 50 PM](https://github.com/natsumi-h/mychef-planner-react/assets/88537845/c62bcba4-0a40-4ab7-9c3e-699a48e0a884)
-
-### Single Recipe Page
 ![Screenshot 2023-11-17 at 3 19 29 PM](https://github.com/natsumi-h/mychef-planner-react/assets/88537845/d6664018-7ed7-4ad9-84c4-0c99e86d118d)
-
-### Favorite List
 ![Screenshot 2023-11-17 at 3 18 05 PM](https://github.com/natsumi-h/mychef-planner-react/assets/88537845/b8588f57-0643-48fb-b107-c3c71eb498d1)
-
-### Shop List
 ![Screenshot 2023-11-17 at 3 18 22 PM](https://github.com/natsumi-h/mychef-planner-react/assets/88537845/76f414ec-cd6b-4c01-b08f-3bd44db74726)
-
-### Signin
 ![Screenshot 2023-11-17 at 3 19 56 PM](https://github.com/natsumi-h/mychef-planner-react/assets/88537845/a2b5dc3a-a2d9-4ec8-ba4b-dc71b1de1398)
 
 ## Technologies Used
@@ -54,6 +45,8 @@ https://mychef-planner-react.vercel.app/
 * Form validation
   * React hook form
   * Yup
+* UI Library
+  * Chakra UI 
 * Typescript
 
 ## Breakdown of Components
