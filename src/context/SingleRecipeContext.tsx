@@ -61,7 +61,6 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   const { user } = useContext(AuthContext);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  //   const [signInMode, setSignInMode] = useState<boolean>(false);
   const [recipe, setRecipe] = useState<Recipe>({
     id: 0,
     image: "",

@@ -12,7 +12,7 @@ import { HomeScreen } from "./pages/HomeScreen.tsx";
 import { ProtectedRoute } from "./components/Layout/ProtectedRoute.tsx";
 import { SingleRecipeScreen } from "./pages/SingleRecipeScreen.tsx";
 // import "@splidejs/splide/css";
-import { SigninScreen } from "./pages/SigninScreen.tsx";
+// import { SigninScreen } from "./pages/SigninScreen.tsx";
 import { FavoriteRecipeContextProvider } from "./context/FavoriteRecipeContext.tsx";
 import { ErrorPage } from "./components/Layout/ErrorPage.tsx";
 // import "@splidejs/react-splide/css";
@@ -27,10 +27,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomeScreen />,
       },
-      {
-        path: "signin",
-        element: <SigninScreen redirectTo="/" />,
-      },
+      // {
+      //   path: "signin",
+      //   element: <SigninScreen redirectTo="/" />,
+      // },
       {
         path: "recipe/:id/",
         element: <SingleRecipeScreen />,

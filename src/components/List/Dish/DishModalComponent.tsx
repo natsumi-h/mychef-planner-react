@@ -40,8 +40,6 @@ export const DishModalComponent = ({
   // const finalRef = React.useRef(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
 
-  console.log(ingredient);
-
   const { clickCreateSaveHandler, clickEditSaveHandler } =
     useContext(DishListContext);
   const {

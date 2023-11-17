@@ -53,6 +53,7 @@ export const RecipeContextProvider = ({ children }: ReactChildren) => {
 
   const getRecipes = async (value: string) => {
     setRecipes([]);
+    value = value.toLowerCase();
     if (value.includes(" ")) {
       value = value.replace(/ /g, ",");
     }

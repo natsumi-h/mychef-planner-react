@@ -2,18 +2,17 @@ import { Button, useDisclosure } from "@chakra-ui/react";
 import { AddToListWindowConfirm } from "./AddToListWindowConfirm";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { SingleRecipeContext } from "../../context/SingleRecipeContext";
 
 export const AddToListbutton = () => {
-  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useContext(AuthContext);
   const { isRecipeInDishList } = useContext(SingleRecipeContext);
+  const { setSignInMode } = useContext(AuthContext);
 
   const handleOnClick = () => {
     if (!user) {
-      navigate("/signin");
+      setSignInMode(true);
       return;
     }
     onOpen();

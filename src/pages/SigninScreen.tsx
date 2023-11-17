@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const SigninScreen = ({ redirectTo }: Props) => {
-  const { googleSignin } = useContext(AuthContext);
+  const { googleSignin, setSignInMode } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -23,9 +23,9 @@ export const SigninScreen = ({ redirectTo }: Props) => {
   const onClick = async () => {
     try {
       await googleSignin();
+      setSignInMode(false);
       showToast("success", "Signin Success");
       navigate(redirectTo);
-      // navigate("/");
     } catch (e) {
       showToast("error", "Something went wrong!");
     }

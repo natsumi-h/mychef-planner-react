@@ -17,6 +17,8 @@ type AuthContextType = {
   googleSignout: () => void;
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  signInMode: boolean;
+  setSignInMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
@@ -24,6 +26,10 @@ export const AuthContext = createContext<AuthContextType>({
   googleSignin: () => {},
   googleSignout: () => {},
   setUser: () => {},
+  signInMode: false,
+  setSignInMode: () => {
+    throw new Error("setSignInMode is not defined");
+  },
 });
 
 export const AuthContextProvider: FC<AuthContextProviderType> = ({
@@ -40,6 +46,8 @@ export const AuthContextProvider: FC<AuthContextProviderType> = ({
     return signOut(auth);
   };
 
+  const [signInMode, setSignInMode] = useState<boolean>(false);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -52,7 +60,14 @@ export const AuthContextProvider: FC<AuthContextProviderType> = ({
 
   return (
     <AuthContext.Provider
-      value={{ googleSignin, googleSignout, user, setUser }}
+      value={{
+        googleSignin,
+        googleSignout,
+        user,
+        setUser,
+        signInMode,
+        setSignInMode,
+      }}
     >
       {children}
     </AuthContext.Provider>

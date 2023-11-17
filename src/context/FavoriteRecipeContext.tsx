@@ -57,7 +57,8 @@ const initialContext = {
 };
 
 // 初期値を設定
-export const FavoriteRecipeContext = createContext<FavoriteRecipeContextType>(initialContext);
+export const FavoriteRecipeContext =
+  createContext<FavoriteRecipeContextType>(initialContext);
 
 export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   const { user } = useContext(AuthContext);
@@ -161,7 +162,7 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
       const data = await res.json();
       showToast("success", "Added to Favorite!");
       // setFavUpdated((prev) => !prev);
-      setFavRecipes((prev) => [...prev, data]);
+      setFavRecipes((prev) => [data, ...prev]);
       return data;
     } catch (error) {
       console.log(error);
