@@ -40,7 +40,7 @@ https://mychef-planner-react.vercel.app/
   * useContext hooks
 * Third party API's
   * [Spoonacular](https://spoonacular.com/food-api/) - To get recipe data
-  * [Airtable](https://support.airtable.com/docs/airtable-web-api-using-filterbyformula-or-sort-parameters) - To store and manage user based favorite/shop list
+  * [Airtable](https://support.airtable.com/docs/airtable-web-api-using-filterbyformula-or-sort-parameters) - To store and manage user based favorite/shop/inventory list
   * [Firebase](https://firebase.google.com/) - Authentication 
 * Form validation
   * React hook form
