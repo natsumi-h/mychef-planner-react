@@ -31,6 +31,18 @@ https://mychef-planner-react.vercel.app/
 ![Screenshot 2023-11-17 at 3 18 22 PM](https://github.com/natsumi-h/mychef-planner-react/assets/88537845/76f414ec-cd6b-4c01-b08f-3bd44db74726)
 ![Screenshot 2023-11-17 at 3 19 56 PM](https://github.com/natsumi-h/mychef-planner-react/assets/88537845/a2b5dc3a-a2d9-4ec8-ba4b-dc71b1de1398)
 
+## Page structure
+| Content  |Root  |  path1 | path2  |
+|---|---|---|---|
+|  Home(Recipe Search) |/   |   |   |
+| Single Recipe  |   | /recipe  |/{id}   |
+| Favorite*  |   | /favorite  |   |
+| List*  |   | /list  |   |
+| Fridge*  |   | /fridge  |   |
+| Sign in  |   | /signin  |   |
+
+ *Protected Route directs to Sign in page when the user is not signed in
+
 ## Technologies Used
 * Frontend framework
   * React
