@@ -1,17 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { spoonacularApiKey, spoonacularRoot } from "../config/config";
-import { ReactChildren } from "../types/types";
-
-type Recipe = {
-  id: number;
-  title: string;
-  image: string;
-};
+import { ReactChildren, RecipeCardType } from "../types/types";
 
 type RecipeContextType = {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  recipes: Recipe[];
+  recipes: RecipeCardType[];
   error: string;
   loading: boolean;
   handleSearchRecipe: (value: string) => Promise<void>;
@@ -47,7 +41,7 @@ export const RecipeContext = createContext<RecipeContextType>(initialContext);
 
 export const RecipeContextProvider = ({ children }: ReactChildren) => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [recipes, setRecipes] = useState<Recipe[]>([
+  const [recipes, setRecipes] = useState<RecipeCardType[]>([
     {
       id: 0,
       title: "",
@@ -86,6 +80,10 @@ export const RecipeContextProvider = ({ children }: ReactChildren) => {
     await getRecipes(value);
     setLoading(false);
   };
+
+  useEffect(() => {
+    getRecipes("");
+  }, []);
 
   return (
     <RecipeContext.Provider

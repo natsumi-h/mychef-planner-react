@@ -11,8 +11,6 @@ import { useContext } from "react";
 import { RecipeContext } from "../../context/RecipeContext";
 import { useFormContext, SubmitHandler, FieldValues } from "react-hook-form";
 
-
-
 export const SearchInput = () => {
   const { handleSearchRecipe } = useContext(RecipeContext);
 

@@ -1,4 +1,4 @@
-import { RecipeList } from "../components/Parts/RecipeList.js";
+import { RecipeList } from "../components/Home/RecipeList.js";
 import { MainBox } from "../components/Layout/MainBox.js";
 import { FilterButtons } from "../components/Home/FilterButtons.js";
 import { SearchInput } from "../components/Home/SearchInput.js";
@@ -13,15 +13,15 @@ export const HomeScreen = () => {
   });
 
   return (
-    <RecipeContextProvider>
-      <MainBox>
+    <MainBox>
+      <RecipeContextProvider>
         <FormProvider {...methods}>
           <SearchInput />
           <FilterButtons />
         </FormProvider>
 
         <RecipeList />
-      </MainBox>
-    </RecipeContextProvider>
+      </RecipeContextProvider>
+    </MainBox>
   );
 };

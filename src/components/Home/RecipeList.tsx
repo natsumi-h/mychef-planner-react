@@ -1,15 +1,11 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { RecipeCard } from "./RecipeCard";
-import { SkeltonCard } from "./SkeltonCard";
-import { useContext, useEffect } from "react";
+import { RecipeCard } from "../Parts/RecipeCard";
+import { SkeltonCard } from "../Parts/SkeltonCard";
+import { useContext } from "react";
 import { RecipeContext } from "../../context/RecipeContext";
 
 export const RecipeList = () => {
-  const { error, recipes, loading, getRecipes } = useContext(RecipeContext);
-
-  useEffect(() => {
-    getRecipes("");
-  }, []);
+  const { error, recipes, loading } = useContext(RecipeContext);
 
   return (
     <>
@@ -17,7 +13,7 @@ export const RecipeList = () => {
         <Text textAlign={"center"} mt={"20px"}>
           Something went wrong! Please try again later.
         </Text>
-      ) : (
+      ) : loading || recipes?.length !== 0 ? (
         <Box mt="20px">
           <Flex
             gap={{ base: "15px", md: "30px" }}
@@ -36,6 +32,12 @@ export const RecipeList = () => {
             ))}
           </Flex>
         </Box>
+      ) : (
+        recipes?.length === 0 && (
+          <Text textAlign={"center"} mt={"20px"}>
+            No results found!
+          </Text>
+        )
       )}
     </>
   );

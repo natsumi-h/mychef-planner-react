@@ -27,15 +27,6 @@ type ModalProps = {
   type: "edit" | "create";
 };
 
-// const ItemInputSchema = yup.object({
-//   input: yup
-//     .string()
-//     .min(3, "Minimum 3 characters are required.")
-//     .max(20, "The value can't be more than 20 characters.")
-//     .required("This field is required."),
-// });
-
-// type ItemInputType = yup.InferType<typeof ItemInputSchema>;
 
 export const MyItemModal: FC<ModalProps> = ({
   isOpen,
