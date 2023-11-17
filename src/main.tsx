@@ -14,7 +14,7 @@ import { SingleRecipeScreen } from "./pages/SingleRecipeScreen.tsx";
 // import "@splidejs/splide/css";
 import { SigninScreen } from "./pages/SigninScreen.tsx";
 import { FavoriteRecipeContextProvider } from "./context/FavoriteRecipeContext.tsx";
-import { ErrorPage } from "./pages/ErrorPage.tsx";
+import { ErrorPage } from "./components/Layout/ErrorPage.tsx";
 // import "@splidejs/react-splide/css";
 
 const router = createBrowserRouter([
@@ -68,10 +68,9 @@ const theme = extendTheme({
     global: {
       "html, body": {
         color: "gray.600",
+        height: "100%" /* 画面の高さ全体を使用 */,
+        margin: "0" /* ブラウザのデフォルトのマージンを取り除く */,
       },
-      // a: {
-      //   color: "teal.500",
-      // },
     },
   },
   fonts: {

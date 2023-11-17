@@ -51,8 +51,8 @@ export const MyItemModal: FC<ModalProps> = ({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
+    reset,
   } = useForm<ItemInputType>({ resolver: yupResolver(ItemInputSchema) });
 
   const onSubmit: SubmitHandler<ItemInputType> = async (data) => {
@@ -62,10 +62,10 @@ export const MyItemModal: FC<ModalProps> = ({
     }
     if (data.input && type === "create") {
       await clickCreateSaveHandler(data.input);
+      reset({ input: "" });
     }
     setButtonLoading(false);
     onClose();
-    reset({ input: "" });
   };
 
   return (

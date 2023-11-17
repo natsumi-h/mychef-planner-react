@@ -19,10 +19,7 @@ type FavoriteRecipeContextType = {
   error: string;
   loading: boolean;
   getFavRecipes: () => Promise<void>;
-  // getFavRecipesIdArr: () => number[];
   deleteFavRecipe: (recipeId: number) => Promise<void>;
-  // favUpdated: boolean;
-  // setFavUpdated: React.Dispatch<React.SetStateAction<boolean>>;
   addToFavorite: (recipe: RecipeCardType) => Promise<void>;
 };
 
@@ -77,7 +74,6 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   ]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  // const [favUpdated, setFavUpdated] = useState<boolean>(false);
   const showToast = useShowToast();
 
   const getFavRecipes = async () => {
@@ -173,12 +169,6 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   getFavRecipes();
-  //   setFavUpdated(false);
-  // }, [favUpdated, user]);
-
   useEffect(() => {
     getFavRecipes();
   }, [user]);
@@ -190,10 +180,7 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
         error,
         loading,
         getFavRecipes,
-        // getFavRecipesIdArr,
         deleteFavRecipe,
-        // favUpdated,
-        // setFavUpdated,
         addToFavorite,
       }}
     >

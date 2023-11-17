@@ -1,11 +1,11 @@
 import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { useRouteError } from "react-router-dom";
-import { PcHeader } from "../components/Layout/Header/PcHeader";
-import { SpHeader } from "../components/Layout/Header/SpHeader";
-import { InnerBox } from "../components/Layout/InnerBox";
-import { PcFooter } from "../components/Layout/Footer/PcFooter";
-import { SpFooter } from "../components/Layout/Footer/SpFooter";
-import { MainBox } from "../components/Layout/MainBox";
+import { PcHeader } from "./Header/PcHeader";
+import { SpHeader } from "./Header/SpHeader";
+import { InnerBox } from "./InnerBox";
+import { PcFooter } from "./Footer/PcFooter";
+import { SpFooter } from "./Footer/SpFooter";
+import { MainBox } from "./MainBox";
 
 type ErrorType = {
   statusText: string;

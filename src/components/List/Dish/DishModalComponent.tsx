@@ -28,16 +28,6 @@ type DishModalProps = {
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-// const ItemInputSchema = yup.object({
-//   input: yup
-//     .string()
-//     .min(3, "Minimum 3 characters are required.")
-//     .max(20, "The value can't be more than 20 characters.")
-//     .required("This field is required."),
-// });
-
-// type ItemInputType = yup.InferType<typeof ItemInputSchema>;
-
 export const DishModalComponent = ({
   ingredient,
   isOpen,
@@ -49,6 +39,8 @@ export const DishModalComponent = ({
   // const initialRef = React.useRef(null);
   // const finalRef = React.useRef(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
+
+  console.log(ingredient);
 
   const { clickCreateSaveHandler, clickEditSaveHandler } =
     useContext(DishListContext);
@@ -78,10 +70,10 @@ export const DishModalComponent = ({
     if (type === "create" && data.input) {
       await clickCreateSaveHandler(data.input, dish);
       setIngredientsArr && setIngredientsArr((prev) => [data.input, ...prev]);
+      reset({ input: "" });
     }
     setButtonLoading(false);
     onClose();
-    reset({ input: "" });
   };
 
   return (

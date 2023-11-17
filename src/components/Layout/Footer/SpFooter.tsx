@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom";
 
 export const SpFooter = () => {
   const location = useLocation();
-  const list = location.pathname.includes("/list");
+  const list =
+    location.pathname.includes("/list") || location.pathname.includes("fridge");
   const favorite = location.pathname.includes("favorite");
   const others = !list && !favorite;
 

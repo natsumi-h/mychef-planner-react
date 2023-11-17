@@ -62,10 +62,10 @@ export const FridgeItemModal: FC<FridgeModalProps> = ({
     }
     if (data.input && type === "create") {
       await clickCreateSaveHandler(data.input);
+      reset({ input: "" });
     }
     setButtonLoading(false);
     onClose();
-    reset({ input: "" });
   };
 
   return (

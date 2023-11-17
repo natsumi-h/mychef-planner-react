@@ -71,7 +71,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   const getDishList = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Item`, {
+      const res = await fetch(`${airTableRoot}${airTableBaseId}/Dish`, {
         headers: {
           Authorization: `Bearer ${airTableApiKey}`,
         },
@@ -89,11 +89,11 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     }
   };
 
-  // 削除
+  // Dish削除
   const handleDeleteDish = async (dish: DishType) => {
     try {
       const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Item/${dish.id}`,
+        `${airTableRoot}${airTableBaseId}/Dish/${dish.id}`,
         {
           method: "DELETE",
           headers: {
@@ -121,7 +121,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     const newIngredients = newIngredientsArr.join(", ");
     try {
       const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Item/${dish.id}`,
+        `${airTableRoot}${airTableBaseId}/Dish/${dish.id}`,
         {
           method: "PUT",
           headers: {
@@ -138,6 +138,18 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
         console.log(data);
         throw new Error(data.error);
       }
+      // 作成したアイテムが所属するdishのidと、mapのidが一致したら、そのdishのingredientsを更新する
+      setDishList((prev) =>
+        prev.map((i) => {
+          if (i.id === dish.id) {
+            return {
+              ...i,
+              fields: { ...i.fields, ingredients: newIngredients },
+            };
+          }
+          return i;
+        })
+      );
       showToast("success", "Item created!");
     } catch (error) {
       console.log(error);
@@ -146,6 +158,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   };
 
   // アイテム編集
+  // Setstate
   const clickEditSaveHandler = async (
     value: string,
     dish: DishType,
@@ -162,7 +175,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
 
     try {
       const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Item/${dish.id}`,
+        `${airTableRoot}${airTableBaseId}/Dish/${dish.id}`,
         {
           method: "PUT",
           headers: {
@@ -179,6 +192,18 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
         console.log(data);
         throw new Error(data.error);
       }
+      // 編集したアイテムが所属するdishのidと、mapのidが一致したら、そのdishのingredientsを更新する
+      setDishList((prev) =>
+        prev.map((i) => {
+          if (i.id === dish.id) {
+            return {
+              ...i,
+              fields: { ...i.fields, ingredients: newIngredients },
+            };
+          }
+          return i;
+        })
+      );
       showToast("success", "Item saved!");
     } catch (error) {
       console.log(error);
@@ -192,14 +217,12 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     const newIngredientsArr = ingredientsArr.filter(
       (item: string) => item !== ingredient
     );
-    const newIngredients = newIngredientsArr.join(", ");
-    // setIngredientsArr(newIngredientsArr);
-
+    const newIngredientsStr = newIngredientsArr.join(", ");
     // もし、ingredientsArrが空になったら、Itemごと削除する
     // DELETE
     if (newIngredientsArr.length === 0) {
       try {
-        await fetch(`${airTableRoot}${airTableBaseId}/Item/${dish.id}`, {
+        await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -214,18 +237,29 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
       return;
     }
 
-    // PATCH
+    // PUT
     try {
-      await fetch(`${airTableRoot}${airTableBaseId}/Item/${dish.id}`, {
+      await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${airTableApiKey}`,
         },
         body: JSON.stringify({
-          fields: { ...dish.fields, ingredients: newIngredients },
+          fields: { ...dish.fields, ingredients: newIngredientsStr },
         }),
       });
+      setDishList((prev) =>
+        prev.map((i) => {
+          if (i.id === dish.id) {
+            return {
+              ...i,
+              fields: { ...i.fields, ingredients: newIngredientsStr },
+            };
+          }
+          return i;
+        })
+      );
       showToast("success", "Item deleted!");
     } catch (error) {
       showToast("error", "Something went wrong!");
@@ -238,14 +272,14 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     const newIngredientsArr = ingredientsArr.filter(
       (item: string) => item !== ingredient
     );
-    const newIngredients = newIngredientsArr.join(", ");
+    const newIngredientsStr = newIngredientsArr.join(", ");
     // setIngredientsArr(newIngredientsArr);
 
     // もし、ingredientsArrが空になったら、Itemごと削除する
     // DELETE
     if (newIngredientsArr.length === 0) {
       try {
-        await fetch(`${airTableRoot}${airTableBaseId}/Item/${dish.id}`, {
+        await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -253,23 +287,34 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
           },
         });
         // showToast("success", "Item deleted!");
+        setDishList((prev) => prev.filter((i) => i.id !== dish.id));
       } catch (error) {
         showToast("error", "Something went wrong!");
       }
     } else {
-      // Item API PATCH
+      // Item API PUT
       try {
-        await fetch(`${airTableRoot}${airTableBaseId}/Item/${dish.id}`, {
+        await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${airTableApiKey}`,
           },
           body: JSON.stringify({
-            fields: { ...dish.fields, ingredients: newIngredients },
+            fields: { ...dish.fields, ingredients: newIngredientsStr },
           }),
         });
-        // showToast("success", "Item deleted!");
+        setDishList((prev) =>
+          prev.map((i) => {
+            if (i.id === dish.id) {
+              return {
+                ...i,
+                fields: { ...i.fields, ingredients: newIngredientsStr },
+              };
+            }
+            return i;
+          })
+        );
       } catch (error) {
         showToast("error", "Something went wrong!");
       }

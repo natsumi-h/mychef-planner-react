@@ -99,7 +99,7 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   //   getDishList
   const getDishList = async () => {
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Item`, {
+      const res = await fetch(`${airTableRoot}${airTableBaseId}/Dish`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
       .join(", ");
 
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Item`, {
+      const res = await fetch(`${airTableRoot}${airTableBaseId}/Dish`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

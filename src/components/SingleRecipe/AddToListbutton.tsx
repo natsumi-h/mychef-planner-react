@@ -26,7 +26,7 @@ export const AddToListbutton = () => {
         size="xs"
         onClick={handleOnClick}
         mt={"10px"}
-        isDisabled={!user || isRecipeInDishList}
+        isDisabled={isRecipeInDishList}
       >
         {isRecipeInDishList
           ? "Ingredients are in your shop list!"
