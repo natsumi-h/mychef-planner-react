@@ -16,9 +16,6 @@ import { FavoriteButton } from "../Favorite/FavoriteButton";
 import { useContext } from "react";
 import { SingleRecipeContext } from "../../context/SingleRecipeContext";
 import { AddToListbutton } from "./AddToListbutton";
-// import { SigninScreen } from "../../pages/SigninScreen";
-
-// import { ProtectedRoute } from "../Layout/ProtectedRoute";
 import { SigninScreen } from "../../pages/SigninScreen";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -32,11 +29,20 @@ export const SingleRecipe = () => {
     servings,
     readyInMinutes,
     extendedIngredients,
-    instructions,
+    analyzedInstructions,
   } = recipe;
-  const instructionsArr = instructions?.split(".").filter(function (item) {
-    return item.trim() !== "";
-  });
+
+
+  const getStepsArray = () => {
+    const stepsArray: string[] = [];
+    analyzedInstructions?.forEach((instruction) => {
+      instruction?.steps?.forEach((step) => {
+        stepsArray?.push(step.step);
+      });
+    });
+    return stepsArray;
+  };
+  const stepsArray = getStepsArray();
 
   return (
     <>
@@ -116,7 +122,7 @@ export const SingleRecipe = () => {
               </Heading>
 
               <OrderedList>
-                {instructionsArr?.map((step, i: number) => (
+                {stepsArray?.map((step, i: number) => (
                   <ListItem key={i}>{step}</ListItem>
                 ))}
               </OrderedList>

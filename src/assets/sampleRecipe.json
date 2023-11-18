@@ -1,0 +1,966 @@
+{
+  "vegetarian": false,
+  "vegan": false,
+  "glutenFree": false,
+  "dairyFree": false,
+  "veryHealthy": false,
+  "cheap": false,
+  "veryPopular": false,
+  "sustainable": false,
+  "lowFodmap": false,
+  "weightWatcherSmartPoints": 13,
+  "gaps": "no",
+  "preparationMinutes": -1,
+  "cookingMinutes": -1,
+  "aggregateLikes": 10,
+  "healthScore": 14,
+  "creditsText": "foodista.com",
+  "sourceName": "foodista.com",
+  "pricePerServing": 168.01,
+  "extendedIngredients": [
+    {
+      "id": 5006,
+      "aisle": "Meat",
+      "image": "whole-chicken.jpg",
+      "consistency": "SOLID",
+      "name": "chicken",
+      "nameClean": "whole chicken",
+      "original": "4 pounds whole chicken cut into quarters or approximately 1 ½ pounds (750g) boneless chicken",
+      "originalName": "whole chicken cut into quarters or approximately 1 ½ pounds (750g) boneless chicken",
+      "amount": 4,
+      "unit": "pounds",
+      "meta": [
+        "whole",
+        "boneless",
+        "cut into quarters or approximately 1 ½ pounds (750g)  chicken"
+      ],
+      "measures": {
+        "us": {
+          "amount": 4,
+          "unitShort": "lb",
+          "unitLong": "pounds"
+        },
+        "metric": {
+          "amount": 870.897,
+          "unitShort": "g",
+          "unitLong": "grams"
+        }
+      }
+    },
+    {
+      "id": 14412,
+      "aisle": "Beverages",
+      "image": "water.png",
+      "consistency": "LIQUID",
+      "name": "water",
+      "nameClean": "water",
+      "original": "4 cups (1 liter) water",
+      "originalName": "cups water",
+      "amount": 1,
+      "unit": "liter",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 1.057,
+          "unitShort": "qt",
+          "unitLong": "quarts"
+        },
+        "metric": {
+          "amount": 1,
+          "unitShort": "l",
+          "unitLong": "liter"
+        }
+      }
+    },
+    {
+      "id": 1006080,
+      "aisle": "Canned and Jarred",
+      "image": "stock-powder.png",
+      "consistency": "SOLID",
+      "name": "chicken soup base",
+      "nameClean": "chicken bouillon granules",
+      "original": "2 tablespoons chicken bouillon granules or chicken soup base",
+      "originalName": "chicken bouillon granules or chicken soup base",
+      "amount": 2,
+      "unit": "tablespoons",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 2,
+          "unitShort": "Tbsps",
+          "unitLong": "Tbsps"
+        },
+        "metric": {
+          "amount": 2,
+          "unitShort": "Tbsps",
+          "unitLong": "Tbsps"
+        }
+      }
+    },
+    {
+      "id": 2004,
+      "aisle": "Spices and Seasonings",
+      "image": "bay-leaves.jpg",
+      "consistency": "SOLID",
+      "name": "bay leaf",
+      "nameClean": "bay leaves",
+      "original": "1 large bay leaf",
+      "originalName": "bay leaf",
+      "amount": 1,
+      "unit": "large",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 1,
+          "unitShort": "large",
+          "unitLong": "large"
+        },
+        "metric": {
+          "amount": 1,
+          "unitShort": "large",
+          "unitLong": "large"
+        }
+      }
+    },
+    {
+      "id": 10511282,
+      "aisle": "Produce",
+      "image": "brown-onion.png",
+      "consistency": "SOLID",
+      "name": "onion",
+      "nameClean": "yellow onion",
+      "original": "1 medium size yellow onion, finely diced",
+      "originalName": "yellow onion, finely diced",
+      "amount": 1,
+      "unit": "medium size",
+      "meta": [
+        "diced",
+        "yellow",
+        "finely"
+      ],
+      "measures": {
+        "us": {
+          "amount": 1,
+          "unitShort": "medium size",
+          "unitLong": "medium size"
+        },
+        "metric": {
+          "amount": 1,
+          "unitShort": "medium size",
+          "unitLong": "medium size"
+        }
+      }
+    },
+    {
+      "id": 11951,
+      "aisle": "Produce",
+      "image": "yellow-bell-pepper.jpg",
+      "consistency": "SOLID",
+      "name": "bell pepper",
+      "nameClean": "yellow pepper",
+      "original": "1 medium to large size orange, red or yellow bell pepper, with seeds",
+      "originalName": "to large size orange, red or yellow bell pepper, with seeds",
+      "amount": 1,
+      "unit": "",
+      "meta": [
+        "red",
+        "yellow",
+        "with seeds",
+        "medium to large"
+      ],
+      "measures": {
+        "us": {
+          "amount": 1,
+          "unitShort": "",
+          "unitLong": ""
+        },
+        "metric": {
+          "amount": 1,
+          "unitShort": "",
+          "unitLong": ""
+        }
+      }
+    },
+    {
+      "id": 10211215,
+      "aisle": "Produce",
+      "image": "garlic.jpg",
+      "consistency": "SOLID",
+      "name": "garlic cloves",
+      "nameClean": "whole garlic cloves",
+      "original": "3 large garlic cloves, finely minced",
+      "originalName": "garlic cloves, finely minced",
+      "amount": 3,
+      "unit": "large",
+      "meta": [
+        "finely minced"
+      ],
+      "measures": {
+        "us": {
+          "amount": 3,
+          "unitShort": "large",
+          "unitLong": "larges"
+        },
+        "metric": {
+          "amount": 3,
+          "unitShort": "large",
+          "unitLong": "larges"
+        }
+      }
+    },
+    {
+      "id": 20081,
+      "aisle": "Baking",
+      "image": "flour.png",
+      "consistency": "SOLID",
+      "name": "flour",
+      "nameClean": "wheat flour",
+      "original": "5 tablespoons all-purpose flour",
+      "originalName": "all-purpose flour",
+      "amount": 5,
+      "unit": "tablespoons",
+      "meta": [
+        "all-purpose"
+      ],
+      "measures": {
+        "us": {
+          "amount": 5,
+          "unitShort": "Tbsps",
+          "unitLong": "Tbsps"
+        },
+        "metric": {
+          "amount": 5,
+          "unitShort": "Tbsps",
+          "unitLong": "Tbsps"
+        }
+      }
+    },
+    {
+      "id": 10716050,
+      "aisle": "Canned and Jarred",
+      "image": "cooked-cannellini-beans.png",
+      "consistency": "SOLID",
+      "name": ".5 can cannellini beans",
+      "nameClean": "cannellini beans",
+      "original": "1 ounce – 15.5 (439g) tin cannellini beans (or any other white bean), drained and rinsed",
+      "originalName": "ounce – 15.5 tin cannellini beans (or any other white bean), drained and rinsed",
+      "amount": 439,
+      "unit": "g",
+      "meta": [
+        "white",
+        "drained and rinsed",
+        "or any other  bean), ",
+        "canned"
+      ],
+      "measures": {
+        "us": {
+          "amount": 15.485,
+          "unitShort": "oz",
+          "unitLong": "ounces"
+        },
+        "metric": {
+          "amount": 439,
+          "unitShort": "g",
+          "unitLong": "grams"
+        }
+      }
+    },
+    {
+      "id": 2009,
+      "aisle": "Spices and Seasonings",
+      "image": "chili-powder.jpg",
+      "consistency": "SOLID",
+      "name": "mild chili powder",
+      "nameClean": "chili powder",
+      "original": "2 tablespoons mild chili powder",
+      "originalName": "mild chili powder",
+      "amount": 2,
+      "unit": "tablespoons",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 2,
+          "unitShort": "Tbsps",
+          "unitLong": "Tbsps"
+        },
+        "metric": {
+          "amount": 2,
+          "unitShort": "Tbsps",
+          "unitLong": "Tbsps"
+        }
+      }
+    },
+    {
+      "id": 1002013,
+      "aisle": "Spices and Seasonings",
+      "image": "ground-coriander.jpg",
+      "consistency": "SOLID",
+      "name": "ground coriander",
+      "nameClean": "ground coriander",
+      "original": "1 teaspoon ground coriander",
+      "originalName": "ground coriander",
+      "amount": 1,
+      "unit": "teaspoon",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 1,
+          "unitShort": "tsp",
+          "unitLong": "teaspoon"
+        },
+        "metric": {
+          "amount": 1,
+          "unitShort": "tsp",
+          "unitLong": "teaspoon"
+        }
+      }
+    },
+    {
+      "id": 1012014,
+      "aisle": "Spices and Seasonings",
+      "image": "ground-cumin.jpg",
+      "consistency": "SOLID",
+      "name": "ground cumin",
+      "nameClean": "ground cumin",
+      "original": "2 teaspoons ground cumin",
+      "originalName": "ground cumin",
+      "amount": 2,
+      "unit": "teaspoons",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 2,
+          "unitShort": "tsps",
+          "unitLong": "teaspoons"
+        },
+        "metric": {
+          "amount": 2,
+          "unitShort": "tsps",
+          "unitLong": "teaspoons"
+        }
+      }
+    },
+    {
+      "id": 11165,
+      "aisle": "Spices and Seasonings",
+      "image": "cilantro.png",
+      "consistency": "SOLID",
+      "name": "coriander",
+      "nameClean": "cilantro",
+      "original": "1 tablespoon chopped fresh coriander",
+      "originalName": "chopped fresh coriander",
+      "amount": 1,
+      "unit": "tablespoon",
+      "meta": [
+        "fresh",
+        "chopped"
+      ],
+      "measures": {
+        "us": {
+          "amount": 1,
+          "unitShort": "Tbsp",
+          "unitLong": "Tbsp"
+        },
+        "metric": {
+          "amount": 1,
+          "unitShort": "Tbsp",
+          "unitLong": "Tbsp"
+        }
+      }
+    },
+    {
+      "id": 1053,
+      "aisle": "Milk, Eggs, Other Dairy",
+      "image": "fluid-cream.jpg",
+      "consistency": "LIQUID",
+      "name": "heavy whipping cream",
+      "nameClean": "cream",
+      "original": "1 cup (250ml) single cream or heavy whipping cream",
+      "originalName": "cup single cream or heavy whipping cream",
+      "amount": 250,
+      "unit": "ml",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 1.057,
+          "unitShort": "cups",
+          "unitLong": "cups"
+        },
+        "metric": {
+          "amount": 250,
+          "unitShort": "ml",
+          "unitLong": "milliliters"
+        }
+      }
+    },
+    {
+      "id": 1056,
+      "aisle": "Milk, Eggs, Other Dairy",
+      "image": "sour-cream.jpg",
+      "consistency": "SOLID",
+      "name": "soured cream",
+      "nameClean": "sour cream",
+      "original": "3/4 cup (187ml) soured cream",
+      "originalName": "3/4 cup soured cream",
+      "amount": 187,
+      "unit": "ml",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 6.148,
+          "unitShort": "fl. oz",
+          "unitLong": "fl. ozs"
+        },
+        "metric": {
+          "amount": 187,
+          "unitShort": "ml",
+          "unitLong": "milliliters"
+        }
+      }
+    },
+    {
+      "id": 10211821,
+      "aisle": "Produce",
+      "image": "yellow-bell-pepper.jpg",
+      "consistency": "SOLID",
+      "name": "bell pepper",
+      "nameClean": "bell pepper",
+      "original": "Pepper to taste",
+      "originalName": "Pepper to taste",
+      "amount": 9,
+      "unit": "servings",
+      "meta": [
+        "to taste"
+      ],
+      "measures": {
+        "us": {
+          "amount": 9,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        },
+        "metric": {
+          "amount": 9,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        }
+      }
+    },
+    {
+      "id": 10211821,
+      "aisle": "Produce",
+      "image": "bell-pepper-orange.png",
+      "consistency": "SOLID",
+      "name": "bell pepper",
+      "nameClean": "bell pepper",
+      "original": "Pepper to taste",
+      "originalName": "Pepper to taste",
+      "amount": 9,
+      "unit": "servings",
+      "meta": [
+        "to taste"
+      ],
+      "measures": {
+        "us": {
+          "amount": 9,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        },
+        "metric": {
+          "amount": 9,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        }
+      }
+    }
+  ],
+  "id": 637932,
+  "title": "Chicken and White Bean Chili",
+  "readyInMinutes": 45,
+  "servings": 9,
+  "sourceUrl": "https://www.foodista.com/recipe/J3VSRLHM/chicken-and-white-bean-chili",
+  "image": "https://spoonacular.com/recipeImages/637932-556x370.jpg",
+  "imageType": "jpg",
+  "summary": "Forget going out to eat or ordering takeout every time you crave American food. Try making Chicken and White Bean Chili at home. One serving contains <b>433 calories</b>, <b>24g of protein</b>, and <b>29g of fat</b>. This recipe serves 9 and costs $1.68 per serving. This recipe is liked by 10 foodies and cooks. Head to the store and pick up bell pepper, soured cream, 5 can cannellini beans, and a few other things to make it today. It works best as a main course, and is done in roughly <b>45 minutes</b>. It is perfect for <b>The Super Bowl</b>. It is brought to you by Foodista. All things considered, we decided this recipe <b>deserves a spoonacular score of 46%</b>. This score is pretty good. Similar recipes are <a href=\"https://spoonacular.com/recipes/white-bean-chicken-chili-391572\">White Bean Chicken Chili</a>, <a href=\"https://spoonacular.com/recipes/chicken-and-white-bean-chili-188890\">Chicken and White Bean Chili</a>, and <a href=\"https://spoonacular.com/recipes/white-bean-and-chicken-chili-401114\">White Bean and Chicken Chili</a>.",
+  "cuisines": [
+    "American"
+  ],
+  "dishTypes": [
+    "lunch",
+    "soup",
+    "main course",
+    "main dish",
+    "dinner"
+  ],
+  "diets": [],
+  "occasions": [
+    "super bowl"
+  ],
+  "winePairing": {
+    "pairedWines": [
+      "cava",
+      "shiraz",
+      "grenache"
+    ],
+    "pairingText": "Chili works really well with Cava, Shiraz, and Grenache. These juicy reds don't have too much tannin (important for spicy foods), but a sparkling wine like cava can tame the heat even better. One wine you could try is Weinert Cavas de Weinert. It has 4.7 out of 5 stars and a bottle costs about 26 dollars.",
+    "productMatches": [
+      {
+        "id": 436255,
+        "title": "Weinert Cavas de Weinert",
+        "description": "Deep ruby tone with purple sparkles springs up its stable and vigorous structure. Its tannic richness guarantees its longevity, but discreet ripe fruit prevails. A balanced full-bodied wine that has reminiscente fragrantes of oak on the long finish. A blend of Cabernet Sauvignon, Malbec and Merlot.",
+        "price": "$25.989999771118164",
+        "imageUrl": "https://spoonacular.com/productImages/436255-312x231.jpg",
+        "averageRating": 0.9399999976158142,
+        "ratingCount": 5,
+        "score": 0.8774999976158142,
+        "link": "https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fweinert-cavas-de-weinert-2004%2F113527"
+      }
+    ]
+  },
+  "instructions": "Rinse the chicken quarters really well and place them in a stock pot.\nTo the chicken in the pot, add the water (water should mostly cover the chicken), bouillon, bay leaf, onion, bell pepper and garlic.\nPlace the stock pot over medium high heat and bring to a boil; reduce the heat to medium, cover and simmer until chicken is cooked through, approximately 30 minutes.\nRemove pot from the heat.\nRemove chicken quarters from the pot and transfer them to a cutting board and cool until they can be comfortably handled. \n \nRemove meat from the bones and chop it into small pieces then shred slightly; set aside.\nRemove approximately 1 cup (250ml) of the liquid from the stock pot and set aside.\nReturn the stock pot to medium heat and bring to a simmer. \n \nPlace the flour into a small bowl.\nWhile stirring constantly, gradually add the reserved liquid to the flour until a smooth paste is formed.\nPour the paste into the stock pot and stir constantly until the mixture starts to thicken.\nAdd the beans, chopped chicken, chili powder, coriander and cumin.\nIncrease the heat to medium and, stirring frequently, simmer, uncovered for approximately 15-20 minutes or until the mixture is thick enough to coat the back of a spoon.\nReduce the heat to low and add the fresh coriander, single cream and soured cream.\nStir well until the single and soured creams are completely incorporated into the chili.\nAdd pepper to taste.\nServe immediately.\nGarnish with chopped avocado, spring onion, fresh coriander or grated cheese.\nLike most soups, this chili is great refrigerated and served the next day but if you intend on freezing it, leave out the whipping cream and soured cream (they separate when frozen) and add them just before serving.\nIf youd like to spice things up a bit, add  -  teaspoon cayenne pepper or red pepper flakes for a slightly hot flavor.",
+  "analyzedInstructions": [
+    {
+      "name": "",
+      "steps": [
+        {
+          "number": 1,
+          "step": "Rinse the chicken quarters really well and place them in a stock pot.",
+          "ingredients": [
+            {
+              "id": 1005091,
+              "name": "chicken leg quarters",
+              "localizedName": "chicken leg quarters",
+              "image": "chicken-thigh.jpg"
+            },
+            {
+              "id": 1006615,
+              "name": "stock",
+              "localizedName": "stock",
+              "image": "chicken-broth.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "step": "To the chicken in the pot, add the water (water should mostly cover the chicken), bouillon, bay leaf, onion, bell pepper and garlic.",
+          "ingredients": [
+            {
+              "id": 10211821,
+              "name": "bell pepper",
+              "localizedName": "bell pepper",
+              "image": "bell-pepper-orange.png"
+            },
+            {
+              "id": 2004,
+              "name": "bay leaves",
+              "localizedName": "bay leaves",
+              "image": "bay-leaves.jpg"
+            },
+            {
+              "id": 1006008,
+              "name": "bouillon",
+              "localizedName": "bouillon",
+              "image": ""
+            },
+            {
+              "id": 0,
+              "name": "chicken",
+              "localizedName": "chicken",
+              "image": "whole-chicken.jpg"
+            },
+            {
+              "id": 11215,
+              "name": "garlic",
+              "localizedName": "garlic",
+              "image": "garlic.png"
+            },
+            {
+              "id": 11282,
+              "name": "onion",
+              "localizedName": "onion",
+              "image": "brown-onion.png"
+            },
+            {
+              "id": 14412,
+              "name": "water",
+              "localizedName": "water",
+              "image": "water.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "step": "Place the stock pot over medium high heat and bring to a boil; reduce the heat to medium, cover and simmer until chicken is cooked through, approximately 30 minutes.",
+          "ingredients": [
+            {
+              "id": 0,
+              "name": "chicken",
+              "localizedName": "chicken",
+              "image": "whole-chicken.jpg"
+            },
+            {
+              "id": 1006615,
+              "name": "stock",
+              "localizedName": "stock",
+              "image": "chicken-broth.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ],
+          "length": {
+            "number": 30,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 4,
+          "step": "Remove pot from the heat.",
+          "ingredients": [],
+          "equipment": [
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "step": "Remove chicken quarters from the pot and transfer them to a cutting board and cool until they can be comfortably handled.",
+          "ingredients": [
+            {
+              "id": 1005091,
+              "name": "chicken leg quarters",
+              "localizedName": "chicken leg quarters",
+              "image": "chicken-thigh.jpg"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404716,
+              "name": "cutting board",
+              "localizedName": "cutting board",
+              "image": "cutting-board.jpg"
+            },
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "step": "Remove meat from the bones and chop it into small pieces then shred slightly; set aside.",
+          "ingredients": [
+            {
+              "id": 1065062,
+              "name": "meat",
+              "localizedName": "meat",
+              "image": "whole-chicken.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 7,
+          "step": "Remove approximately 1 cup (250ml) of the liquid from the stock pot and set aside.",
+          "ingredients": [
+            {
+              "id": 1006615,
+              "name": "stock",
+              "localizedName": "stock",
+              "image": "chicken-broth.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ]
+        },
+        {
+          "number": 8,
+          "step": "Return the stock pot to medium heat and bring to a simmer.",
+          "ingredients": [
+            {
+              "id": 1006615,
+              "name": "stock",
+              "localizedName": "stock",
+              "image": "chicken-broth.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "step": "Place the flour into a small bowl.",
+          "ingredients": [
+            {
+              "id": 20081,
+              "name": "all purpose flour",
+              "localizedName": "all purpose flour",
+              "image": "flour.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404783,
+              "name": "bowl",
+              "localizedName": "bowl",
+              "image": "bowl.jpg"
+            }
+          ]
+        },
+        {
+          "number": 10,
+          "step": "While stirring constantly, gradually add the reserved liquid to the flour until a smooth paste is formed.",
+          "ingredients": [
+            {
+              "id": 20081,
+              "name": "all purpose flour",
+              "localizedName": "all purpose flour",
+              "image": "flour.png"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 11,
+          "step": "Pour the paste into the stock pot and stir constantly until the mixture starts to thicken.",
+          "ingredients": [
+            {
+              "id": 1006615,
+              "name": "stock",
+              "localizedName": "stock",
+              "image": "chicken-broth.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404752,
+              "name": "pot",
+              "localizedName": "pot",
+              "image": "stock-pot.jpg"
+            }
+          ]
+        },
+        {
+          "number": 12,
+          "step": "Add the beans, chopped chicken, chili powder, coriander and cumin.",
+          "ingredients": [
+            {
+              "id": 2009,
+              "name": "chili powder",
+              "localizedName": "chili powder",
+              "image": "chili-powder.jpg"
+            },
+            {
+              "id": 1012013,
+              "name": "coriander",
+              "localizedName": "coriander",
+              "image": "ground-coriander.jpg"
+            },
+            {
+              "id": 0,
+              "name": "chicken",
+              "localizedName": "chicken",
+              "image": "whole-chicken.jpg"
+            },
+            {
+              "id": 0,
+              "name": "beans",
+              "localizedName": "beans",
+              "image": "kidney-beans.jpg"
+            },
+            {
+              "id": 1002014,
+              "name": "cumin",
+              "localizedName": "cumin",
+              "image": "ground-cumin.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 13,
+          "step": "Increase the heat to medium and, stirring frequently, simmer, uncovered for approximately 15-20 minutes or until the mixture is thick enough to coat the back of a spoon.",
+          "ingredients": [],
+          "equipment": [],
+          "length": {
+            "number": 20,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 14,
+          "step": "Reduce the heat to low and add the fresh coriander, single cream and soured cream.",
+          "ingredients": [
+            {
+              "id": 11165,
+              "name": "fresh cilantro",
+              "localizedName": "fresh cilantro",
+              "image": "cilantro.png"
+            },
+            {
+              "id": 1001052,
+              "name": "single cream",
+              "localizedName": "single cream",
+              "image": "fluid-cream.jpg"
+            },
+            {
+              "id": 1056,
+              "name": "sour cream",
+              "localizedName": "sour cream",
+              "image": "sour-cream.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 15,
+          "step": "Stir well until the single and soured creams are completely incorporated into the chili.",
+          "ingredients": [
+            {
+              "id": 11819,
+              "name": "chili pepper",
+              "localizedName": "chili pepper",
+              "image": "red-chili.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 16,
+          "step": "Add pepper to taste.",
+          "ingredients": [
+            {
+              "id": 1002030,
+              "name": "pepper",
+              "localizedName": "pepper",
+              "image": "pepper.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 17,
+          "step": "Serve immediately.",
+          "ingredients": [],
+          "equipment": []
+        },
+        {
+          "number": 18,
+          "step": "Garnish with chopped avocado, spring onion, fresh coriander or grated cheese.",
+          "ingredients": [
+            {
+              "id": 11165,
+              "name": "fresh cilantro",
+              "localizedName": "fresh cilantro",
+              "image": "cilantro.png"
+            },
+            {
+              "id": 11291,
+              "name": "spring onions",
+              "localizedName": "spring onions",
+              "image": "spring-onions.jpg"
+            },
+            {
+              "id": 9037,
+              "name": "avocado",
+              "localizedName": "avocado",
+              "image": "avocado.jpg"
+            },
+            {
+              "id": 1041009,
+              "name": "cheese",
+              "localizedName": "cheese",
+              "image": "cheddar-cheese.png"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 19,
+          "step": "Like most soups, this chili is great refrigerated and served the next day but if you intend on freezing it, leave out the whipping cream and soured cream (they separate when frozen) and add them just before serving.",
+          "ingredients": [
+            {
+              "id": 1001053,
+              "name": "whipping cream",
+              "localizedName": "whipping cream",
+              "image": "fluid-cream.jpg"
+            },
+            {
+              "id": 1056,
+              "name": "sour cream",
+              "localizedName": "sour cream",
+              "image": "sour-cream.jpg"
+            },
+            {
+              "id": 11819,
+              "name": "chili pepper",
+              "localizedName": "chili pepper",
+              "image": "red-chili.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 20,
+          "step": "If youd like to spice things up a bit, add  -  teaspoon cayenne pepper or red pepper flakes for a slightly hot flavor.",
+          "ingredients": [
+            {
+              "id": 1032009,
+              "name": "red pepper flakes",
+              "localizedName": "red pepper flakes",
+              "image": "red-pepper-flakes.jpg"
+            },
+            {
+              "id": 2031,
+              "name": "cayenne pepper",
+              "localizedName": "cayenne pepper",
+              "image": "chili-powder.jpg"
+            }
+          ],
+          "equipment": []
+        }
+      ]
+    }
+  ],
+  "originalId": null,
+  "spoonacularScore": 66.61162567138672,
+  "spoonacularSourceUrl": "https://spoonacular.com/chicken-and-white-bean-chili-637932"
+}

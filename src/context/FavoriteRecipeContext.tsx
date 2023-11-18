@@ -161,7 +161,6 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
       if (!res.ok) throw new Error("Something went wrong!");
       const data = await res.json();
       showToast("success", "Added to Favorite!");
-      // setFavUpdated((prev) => !prev);
       setFavRecipes((prev) => [data, ...prev]);
       return data;
     } catch (error) {

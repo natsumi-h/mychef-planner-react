@@ -61,8 +61,8 @@ export const RecipeContextProvider = ({ children }: ReactChildren) => {
     try {
       const res = await fetch(
         value === ""
-          ? `${spoonacularRoot}recipes/random?apiKey=${spoonacularApiKey}&number=100`
-          : `${spoonacularRoot}recipes/random?apiKey=${spoonacularApiKey}&tags=${value}&number=100`
+          ? `${spoonacularRoot}recipes/random?apiKey=${spoonacularApiKey}&number=60`
+          : `${spoonacularRoot}recipes/random?apiKey=${spoonacularApiKey}&tags=${value}&number=60`
       );
       if (!res.ok) {
         setError("Something went wrong!");

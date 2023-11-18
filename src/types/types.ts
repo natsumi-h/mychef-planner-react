@@ -17,7 +17,11 @@ export type Recipe = RecipeCardType & {
     name: string;
     original: string;
   }[];
-  instructions: string;
+  analyzedInstructions: {
+    steps: {
+      step: string;
+    }[];
+  }[];
 };
 
 export type SearchInputType = yup.InferType<typeof SearchInputSchema>;

@@ -30,7 +30,7 @@ const initialContext = {
     servings: 0,
     readyInMinutes: 0,
     extendedIngredients: [],
-    instructions: "",
+    analyzedInstructions: [],
   },
   error: "",
   isLoading: true,
@@ -68,7 +68,7 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
     servings: 0,
     readyInMinutes: 0,
     extendedIngredients: [],
-    instructions: "",
+    analyzedInstructions: [],
   });
   const { title, extendedIngredients } = recipe;
   const [dishList, setDishList] = useState<DishType[]>([]);
@@ -95,7 +95,7 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
     }
   };
 
-  //   getDishList
+  //  getDishList
   const getDishList = async () => {
     try {
       const res = await fetch(`${airTableRoot}${airTableBaseId}/Dish`, {

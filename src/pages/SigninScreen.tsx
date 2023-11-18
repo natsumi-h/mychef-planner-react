@@ -40,6 +40,7 @@ export const SigninScreen = ({ redirectTo }: Props) => {
           variant={"outline"}
           leftIcon={<FcGoogle />}
           onClick={onClick}
+          _hover={{ bg: "secondary" }}
         >
           <Center>
             <Text>Sign in with Google</Text>

@@ -158,7 +158,6 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   };
 
   // アイテム編集
-  // Setstate
   const clickEditSaveHandler = async (
     value: string,
     dish: DishType,
