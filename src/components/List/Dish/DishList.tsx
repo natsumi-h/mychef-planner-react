@@ -5,6 +5,7 @@ import { Text } from "@chakra-ui/react";
 
 export const DishList = () => {
   const { dishList, error, loading } = useContext(DishListContext);
+  
 
   return (
     <>

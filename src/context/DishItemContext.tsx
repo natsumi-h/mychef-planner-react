@@ -1,26 +1,18 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
-import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
-import { DishType } from "../components/List/Dish/types";
+import { createContext } from "react";
+import { DishType, Ingredient } from "../components/List/Dish/types";
 
 type DishItemContextProps = {
   children: React.ReactNode;
-  ingredient: string;
+  ingredient: Ingredient;
   dish: DishType;
 };
 
 type DishItemContextType = {
-  isInFridge: boolean;
-  setIsInFridge: React.Dispatch<React.SetStateAction<boolean>>;
   dish: DishType;
-  ingredient: string;
+  ingredient: Ingredient;
 };
 
 const initialContext = {
-  isInFridge: false,
-  setIsInFridge: () => {
-    throw new Error("setIsInFridge is not defined");
-  },
   dish: {
     id: "",
     fields: {
@@ -29,8 +21,9 @@ const initialContext = {
       ingredients: "",
       userId: "",
     },
+    ingredients: [],
   },
-  ingredient: "",
+  ingredient: { ingredient: "", isInFridge: false },
 };
 
 // 初期値を設定
@@ -42,51 +35,8 @@ export const DishItemContextProvider = ({
   ingredient,
   dish,
 }: DishItemContextProps) => {
-  const [isInFridge, setIsInFridge] = useState<boolean>(false);
-  const { user } = useContext(AuthContext);
-  const uid = user?.uid;
-
-  const checkIfItemIsInFridge = async () => {
-    try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Fridge`, {
-        headers: {
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-      });
-      const data = await res.json();
-
-      const filteredItems = data.records.filter(
-        (item: {
-          fields: {
-            userId: string;
-          };
-        }) => item?.fields?.userId === uid
-      );
-
-      const isInFridge = filteredItems.some(
-        (item: {
-          fields: {
-            ingredient: string;
-            recipeId: number;
-          };
-        }) =>
-          item?.fields?.ingredient === ingredient &&
-          item?.fields?.recipeId === dish?.fields?.recipeId
-      );
-      setIsInFridge(isInFridge);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    checkIfItemIsInFridge();
-  }, [user]);
-
   return (
-    <DishItemContext.Provider
-      value={{ isInFridge, setIsInFridge, dish, ingredient }}
-    >
+    <DishItemContext.Provider value={{ dish, ingredient }}>
       {children}
     </DishItemContext.Provider>
   );

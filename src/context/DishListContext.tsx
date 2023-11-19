@@ -71,16 +71,58 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   const getDishList = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Dish`, {
-        headers: {
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-      });
-      const data = await res.json();
-      const filteredDishList = data.records.filter(
-        (dish: DishType) => dish?.fields?.userId === uid
+      const res = await fetch(
+        `${airTableRoot}${airTableBaseId}/Dish?filterByFormula=%7BuserId%7D+%3D+%22${uid}%22`,
+        {
+          headers: {
+            Authorization: `Bearer ${airTableApiKey}`,
+          },
+        }
       );
-      setDishList(filteredDishList);
+      const data = await res.json();
+
+      // Fridgeのアイテムを取得
+      const getItemIsInFridge = async () => {
+        try {
+          const res = await fetch(
+            `${airTableRoot}${airTableBaseId}/Fridge?filterByFormula=%7BuserId%7D+%3D+%22${uid}%22`,
+            {
+              headers: {
+                Authorization: `Bearer ${airTableApiKey}`,
+              },
+            }
+          );
+          const data = await res.json();
+          return data.records;
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      const fridgeItems = await getItemIsInFridge();
+
+      const newDishList = data.records.map((dish: DishType) => {
+        const ingredientsArr = dish?.fields?.ingredients.split(", ");
+        return {
+          ...dish,
+          ingredients: ingredientsArr?.map((ingredient: string) => {
+            return {
+              ingredient: ingredient,
+              isInFridge: fridgeItems.some(
+                (fridgeItem: {
+                  fields: {
+                    ingredient: string;
+                    recipeId: number;
+                  };
+                }) =>
+                  fridgeItem?.fields?.ingredient === ingredient &&
+                  fridgeItem?.fields?.recipeId === dish?.fields?.recipeId
+              ),
+            };
+          }),
+        };
+      });
+      setDishList(newDishList);
     } catch (error) {
       console.log(error);
       setError("Something went wrong!");
@@ -91,7 +133,6 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
 
   // Dish削除
   const handleDeleteDish = async (dish: DishType) => {
-
     try {
       const res = await fetch(
         `${airTableRoot}${airTableBaseId}/Dish/${dish.id}`,
@@ -140,6 +181,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
         console.log(data);
         throw new Error(data.error);
       }
+
       // 作成したアイテムが所属するdishのidと、mapのidが一致したら、そのdishのingredientsを更新する
       setDishList((prev) =>
         prev.map((i) => {
@@ -147,6 +189,13 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
             return {
               ...i,
               fields: { ...i.fields, ingredients: newIngredients },
+              ingredients: [
+                {
+                  ingredient,
+                  isInFridge: false,
+                },
+                ...i.ingredients,
+              ],
             };
           }
           return i;
@@ -200,6 +249,15 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
             return {
               ...i,
               fields: { ...i.fields, ingredients: newIngredients },
+              ingredients: i.ingredients.map((item) => {
+                if (item.ingredient === ingredient) {
+                  return {
+                    ingredient: value,
+                    isInFridge: item.isInFridge,
+                  };
+                }
+                return item;
+              }),
             };
           }
           return i;
@@ -231,6 +289,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
           },
         });
         showToast("success", "Item deleted!");
+        // idが一致しないものだけを残す
         setDishList((prev) => prev.filter((i) => i.id !== dish.id));
       } catch (error) {
         showToast("error", "Something went wrong!");
@@ -256,6 +315,9 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
             return {
               ...i,
               fields: { ...i.fields, ingredients: newIngredientsStr },
+              ingredients: i.ingredients.filter(
+                (item) => item.ingredient !== ingredient
+              ),
             };
           }
           return i;
@@ -269,59 +331,6 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
 
   // Add to Fridge
   const handleAddToFridge = async (dish: DishType, ingredient: string) => {
-    // dish（パラメーター）のingredientsを配列にする
-    // const ingredientsArr = dish.fields.ingredients.split(", ");
-
-    // ingredientsArrから、クリックしたingredientを削除する
-    // const newIngredientsArr = ingredientsArr.filter(
-    //   (item: string) => item !== ingredient
-    // );
-    // newIngredientsArrを文字列にする
-    // const newIngredientsStr = newIngredientsArr.join(", ");
-
-    // もし、ingredientsArrが空になったら、Itemごと削除する=>不要
-    // DELETE Dish API
-    // if (newIngredientsArr.length === 0) {
-    //   try {
-    //     await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
-    //       method: "DELETE",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${airTableApiKey}`,
-    //       },
-    //     });
-    //     setDishList((prev) => prev.filter((i) => i.id !== dish.id));
-    //   } catch (error) {
-    //     showToast("error", "Something went wrong!");
-    //   }
-    // } else {
-    //   // PUT Dish API=>不要？
-    //   try {
-    //     await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
-    //       method: "PUT",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${airTableApiKey}`,
-    //       },
-    //       body: JSON.stringify({
-    //         fields: { ...dish.fields, ingredients: newIngredientsStr },
-    //       }),
-    //     });
-    //     setDishList((prev) =>
-    //       prev.map((i) => {
-    //         if (i.id === dish.id) {
-    //           return {
-    //             ...i,
-    //             fields: { ...i.fields, ingredients: newIngredientsStr },
-    //           };
-    //         }
-    //         return i;
-    //       })
-    //     );
-    //   } catch (error) {
-    //     showToast("error", "Something went wrong!");
-    //   }
-    // }
 
     // POST to Fridge API
     try {
@@ -341,6 +350,25 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
           },
         }),
       });
+      setDishList((prev) =>
+        prev.map((i) => {
+          if (i.id === dish.id) {
+            return {
+              ...i,
+              ingredients: i.ingredients.map((item) => {
+                if (item.ingredient === ingredient) {
+                  return {
+                    ingredient,
+                    isInFridge: true,
+                  };
+                }
+                return item;
+              }),
+            };
+          }
+          return i;
+        })
+      );
       showToast("success", "Item added to your fridge!");
     } catch (error) {
       showToast("error", "Something went wrong!");

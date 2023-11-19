@@ -7,11 +7,12 @@ import { FC } from "react";
 
 type DishButtonsProps = {
   dish: DishType;
-  setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
+  // setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const DishButtons: FC<DishButtonsProps> = ({
-  setIngredientsArr,
+  // setIngredientsArr,
+  dish,
 }) => {
   const {
     isOpen: isOpenModal,
@@ -25,9 +26,11 @@ export const DishButtons: FC<DishButtonsProps> = ({
     onClose: onCloseConfirm,
   } = useDisclosure();
 
+
   return (
     <>
       <Flex columnGap={"10px"}>
+        {/* Add Item */}
         <IconButton
           isRound={true}
           outline={"none"}
@@ -37,6 +40,8 @@ export const DishButtons: FC<DishButtonsProps> = ({
           icon={<Icon boxSize={3} as={FiPlus}></Icon>}
           onClick={onOpenModal}
         />
+
+        {/* Delete Dish */}
         <IconButton
           isRound={true}
           outline={"none"}
@@ -53,7 +58,7 @@ export const DishButtons: FC<DishButtonsProps> = ({
         isOpen={isOpenModal}
         onClose={onCloseModal}
         type="create"
-        setIngredientsArr={setIngredientsArr}
+        dish={dish}
       />
 
       {/* Dish Delete Confirm */}
@@ -61,6 +66,7 @@ export const DishButtons: FC<DishButtonsProps> = ({
         isOpen={isOpenConfirm}
         onClose={onCloseConfirm}
         type="delete dish"
+        dish={dish}
       />
     </>
   );

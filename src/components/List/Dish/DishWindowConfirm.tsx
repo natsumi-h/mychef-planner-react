@@ -10,12 +10,14 @@ import {
 import React, { FC, useContext, useState } from "react";
 import { DishListContext } from "../../../context/DishListContext";
 import { DishItemContext } from "../../../context/DishItemContext";
+import { DishType } from "./types";
 
 type DishWindowConfirmProps = {
   isOpen: boolean;
   onClose: () => void;
   type: "delete dish" | "delete item" | "fridge";
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
+  dish?: DishType;
 };
 
 export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
@@ -23,31 +25,35 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
   onClose,
   type,
   setIngredientsArr,
+  dish,
 }) => {
   const cancelRef = React.useRef<HTMLButtonElement>(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const { handleDeleteDish, handleDeleteItem, handleAddToFridge } =
     useContext(DishListContext);
-  const { ingredient, dish, setIsInFridge } = useContext(DishItemContext);
-  console.log(dish.id);
+  const {
+    ingredient,
+    dish: itemDish,
+    // setIsInFridge,
+  } = useContext(DishItemContext);
+
   const confirmHandler = async () => {
     setButtonLoading(true);
-    if (type === "delete dish") {
+    // Dish 削除
+    if (type === "delete dish" && dish) {
       await handleDeleteDish(dish);
     }
     // アイテム削除
     if (type === "delete item") {
-      await handleDeleteItem(dish, ingredient);
+      await handleDeleteItem(itemDish, ingredient.ingredient);
       setIngredientsArr &&
-        setIngredientsArr((prev) => prev.filter((i) => i !== ingredient));
+        setIngredientsArr((prev) =>
+          prev.filter((i) => i !== ingredient.ingredient)
+        );
     }
     // Add to Fridge
     if (type === "fridge") {
-      await handleAddToFridge(dish, ingredient);
-      // 不要
-      // setIngredientsArr &&
-      //   setIngredientsArr((prev) => prev.filter((i) => i !== ingredient));
-      setIsInFridge(true);
+      await handleAddToFridge(itemDish, ingredient.ingredient);
     }
     setButtonLoading(false);
     onClose();

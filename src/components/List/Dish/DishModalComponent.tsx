@@ -17,12 +17,14 @@ import { useContext, useState } from "react";
 import { DishListContext } from "../../../context/DishListContext";
 import { ItemInputSchema, ItemInputType } from "../../../types/types";
 import { DishItemContext } from "../../../context/DishItemContext";
+import { DishType } from "./types";
 
 type DishModalProps = {
   isOpen: boolean;
   onClose: () => void;
   type: "edit" | "create";
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
+  dish?: DishType;
 };
 
 export const DishModalComponent = ({
@@ -30,11 +32,12 @@ export const DishModalComponent = ({
   onClose,
   type,
   setIngredientsArr,
+  dish,
 }: DishModalProps) => {
   // const initialRef = React.useRef(null);
   // const finalRef = React.useRef(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
-  const { ingredient, dish } = useContext(DishItemContext);
+  const { ingredient, dish: itemDish } = useContext(DishItemContext);
 
   const { clickCreateSaveHandler, clickEditSaveHandler } =
     useContext(DishListContext);
@@ -49,11 +52,11 @@ export const DishModalComponent = ({
     setButtonLoading(true);
     // アイテム編集
     if (type === "edit" && data.input) {
-      await clickEditSaveHandler(data.input, dish, ingredient);
+      await clickEditSaveHandler(data.input, itemDish, ingredient.ingredient);
       setIngredientsArr &&
         setIngredientsArr((prev) =>
           prev.map((i) => {
-            if (i === ingredient) {
+            if (i === ingredient.ingredient) {
               return data.input;
             }
             return i;
@@ -61,7 +64,7 @@ export const DishModalComponent = ({
         );
     }
     // アイテム作成
-    if (type === "create" && data.input) {
+    if (type === "create" && data.input && dish) {
       await clickCreateSaveHandler(data.input, dish);
       setIngredientsArr && setIngredientsArr((prev) => [data.input, ...prev]);
       reset({ input: "" });
@@ -91,7 +94,7 @@ export const DishModalComponent = ({
           <FormControl isInvalid={errors.input ? true : false}>
             <Input
               placeholder="Tomato"
-              defaultValue={ingredient}
+              defaultValue={ingredient.ingredient}
               {...register("input")}
             />
             <FormErrorMessage>{errors?.input?.message}</FormErrorMessage>

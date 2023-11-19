@@ -2,16 +2,10 @@ import { Flex, Icon, IconButton, useDisclosure } from "@chakra-ui/react";
 import { FiCheck, FiEdit, FiTrash } from "react-icons/fi";
 import { DishModalComponent } from "./DishModalComponent";
 import { DishWindowConfirm } from "./DishWindowConfirm";
-import { FC, useContext } from "react";
+import { useContext } from "react";
 import { DishItemContext } from "../../../context/DishItemContext";
 
-type ItemButtonsProps = {
-  setIngredientsArr: React.Dispatch<React.SetStateAction<string[]>>;
-};
-
-export const DishItemButtons: FC<ItemButtonsProps> = ({
-  setIngredientsArr,
-}) => {
+export const DishItemButtons = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenConfirm,
@@ -23,12 +17,12 @@ export const DishItemButtons: FC<ItemButtonsProps> = ({
     onOpen: onOpenFridgeConfirm,
     onClose: onCloseFridgeConfirm,
   } = useDisclosure();
-  const { isInFridge } = useContext(DishItemContext);
+  const { ingredient } = useContext(DishItemContext);
 
   return (
     <>
       {/* Trash Item */}
-      <Flex columnGap={"10px"} opacity={isInFridge ? "0.8" : "1"}>
+      <Flex columnGap={"10px"} opacity={ingredient.isInFridge ? "0.8" : "1"}>
         <IconButton
           isRound={true}
           outline={"none"}
@@ -48,7 +42,7 @@ export const DishItemButtons: FC<ItemButtonsProps> = ({
           fontSize="20px"
           icon={<Icon boxSize={3} as={FiCheck}></Icon>}
           onClick={onOpenFridgeConfirm}
-          isDisabled={isInFridge}
+          isDisabled={ingredient.isInFridge}
         />
 
         {/* Edit */}
@@ -68,7 +62,6 @@ export const DishItemButtons: FC<ItemButtonsProps> = ({
         isOpen={isOpen}
         onClose={onClose}
         type="edit"
-        setIngredientsArr={setIngredientsArr}
       />
 
       {/* Trash Item WindowConfirm */}
@@ -76,7 +69,6 @@ export const DishItemButtons: FC<ItemButtonsProps> = ({
         isOpen={isOpenConfirm}
         onClose={onCloseConfirm}
         type="delete item"
-        setIngredientsArr={setIngredientsArr}
       />
 
       {/* Add to fridge WindowConfirm */}
