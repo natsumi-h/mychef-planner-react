@@ -9,29 +9,26 @@ import {
 } from "@chakra-ui/react";
 import React, { FC, useContext, useState } from "react";
 import { DishListContext } from "../../../context/DishListContext";
-import { DishType } from "./types";
+import { DishItemContext } from "../../../context/DishItemContext";
 
 type DishWindowConfirmProps = {
   isOpen: boolean;
   onClose: () => void;
   type: "delete dish" | "delete item" | "fridge";
-  dish: DishType;
-  ingredient?: string;
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
   isOpen,
   onClose,
-  dish,
   type,
-  ingredient,
   setIngredientsArr,
 }) => {
   const cancelRef = React.useRef<HTMLButtonElement>(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const { handleDeleteDish, handleDeleteItem, handleAddToFridge } =
     useContext(DishListContext);
+  const { ingredient, dish, setIsInFridge } = useContext(DishItemContext);
 
   const confirmHandler = async () => {
     setButtonLoading(true);
@@ -39,16 +36,18 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
       await handleDeleteDish(dish);
     }
     // アイテム削除
-    if (type === "delete item" && ingredient) {
+    if (type === "delete item") {
       await handleDeleteItem(dish, ingredient);
       setIngredientsArr &&
         setIngredientsArr((prev) => prev.filter((i) => i !== ingredient));
     }
     // Add to Fridge
-    if (type === "fridge" && ingredient) {
+    if (type === "fridge") {
       await handleAddToFridge(dish, ingredient);
-      setIngredientsArr &&
-        setIngredientsArr((prev) => prev.filter((i) => i !== ingredient));
+      // 不要
+      // setIngredientsArr &&
+      //   setIngredientsArr((prev) => prev.filter((i) => i !== ingredient));
+      setIsInFridge(true);
     }
     setButtonLoading(false);
     onClose();

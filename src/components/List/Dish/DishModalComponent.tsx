@@ -12,33 +12,29 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useState } from "react";
 import { DishListContext } from "../../../context/DishListContext";
-import { DishType } from "./types";
 import { ItemInputSchema, ItemInputType } from "../../../types/types";
+import { DishItemContext } from "../../../context/DishItemContext";
 
 type DishModalProps = {
-  ingredient?: string;
   isOpen: boolean;
   onClose: () => void;
   type: "edit" | "create";
-  dish: DishType;
   setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const DishModalComponent = ({
-  ingredient,
   isOpen,
   onClose,
-  dish,
   type,
   setIngredientsArr,
 }: DishModalProps) => {
   // const initialRef = React.useRef(null);
   // const finalRef = React.useRef(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
+  const { ingredient, dish } = useContext(DishItemContext);
 
   const { clickCreateSaveHandler, clickEditSaveHandler } =
     useContext(DishListContext);
@@ -52,7 +48,7 @@ export const DishModalComponent = ({
   const onSubmit: SubmitHandler<ItemInputType> = async (data) => {
     setButtonLoading(true);
     // アイテム編集
-    if (type === "edit" && data.input && ingredient) {
+    if (type === "edit" && data.input) {
       await clickEditSaveHandler(data.input, dish, ingredient);
       setIngredientsArr &&
         setIngredientsArr((prev) =>

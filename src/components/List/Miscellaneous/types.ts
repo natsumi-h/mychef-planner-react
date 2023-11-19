@@ -1,5 +1,3 @@
-
-
 export type MyItems = MyItemType[] | [];
 
 export type MyItemType = {
@@ -10,4 +8,5 @@ export type MyItemType = {
 export type MyItemFields = {
   ingredient: string;
   userId: string;
+
 };

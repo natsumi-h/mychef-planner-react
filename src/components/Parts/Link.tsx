@@ -6,9 +6,10 @@ type Link = {
   children: React.ReactNode;
   to: string;
   target?: "_blank" | "_self" | "_parent" | "_top" | undefined;
+  underline?: boolean;
 };
 
-export const Link: FC<Link> = ({ children, to, target }) => {
+export const Link: FC<Link> = ({ children, to, target, underline }) => {
   return (
     <ChakraLink
       as={ReactRouterLink}
@@ -20,6 +21,8 @@ export const Link: FC<Link> = ({ children, to, target }) => {
         opacity: "0.8",
         transition: "all 0.3s ease",
       }}
+      textDecor={underline ? "underline" : "none"}
+      noOfLines={1}
     >
       {children}
     </ChakraLink>

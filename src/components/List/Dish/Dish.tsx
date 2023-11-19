@@ -4,7 +4,7 @@ import { Link } from "../../Parts/Link";
 import { DishButtons } from "./DishButtons";
 import { FC, useState } from "react";
 import { DishType } from "./types";
-import { DishItemButtons } from "./DishItemButtons";
+import { DishItemContextProvider } from "../../../context/DishItemContext";
 
 type DishProps = {
   dish: DishType;
@@ -45,13 +45,13 @@ export const Dish: FC<DishProps> = ({ dish }) => {
         {/* Ingredients */}
         {ingredientsArr?.map((ingredient: string, i: number) => {
           return (
-            <DishItem key={i} ingredient={ingredient}>
-              <DishItemButtons
-                ingredient={ingredient}
-                dish={dish}
+            <DishItemContextProvider ingredient={ingredient} dish={dish}>
+              <DishItem
+                key={i}
                 setIngredientsArr={setIngredientsArr}
-              />
-            </DishItem>
+              >
+              </DishItem>
+            </DishItemContextProvider>
           );
         })}
       </Box>

@@ -1,19 +1,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactChildren } from "../types/types";
 import { AuthContext } from "./AuthContext";
-import { MyItemType, MyItems } from "../components/List/Miscellaneous/types";
 import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
+import { FridgeItemType, FridgeItems } from "../components/List/Fridge/types";
 
 type FridgeContextType = {
-  items: MyItems;
-  setItems: React.Dispatch<React.SetStateAction<MyItems>>;
+  items: FridgeItems;
+  setItems: React.Dispatch<React.SetStateAction<FridgeItems>>;
   getMyList: () => Promise<void>;
   error: string;
   loading: boolean;
   clickCreateSaveHandler: (ingredient: string) => Promise<void>;
-  clickEditSaveHandler: (ingredient: string, item: MyItemType) => Promise<void>;
-  clickTrashHandler: (item: MyItemType) => Promise<void>;
+  clickEditSaveHandler: (ingredient: string, item: FridgeItemType) => Promise<void>;
+  clickTrashHandler: (item: FridgeItemType) => Promise<void>;
 };
 
 const initialContext = {
@@ -51,7 +51,7 @@ export const FridgeContext = createContext<FridgeContextType>(initialContext);
 export const FridgeContextProvider = ({ children }: ReactChildren) => {
   const { user } = useContext(AuthContext);
   const uid = user?.uid;
-  const [items, setItems] = useState<MyItems>([]);
+  const [items, setItems] = useState<FridgeItems>([]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const showToast = useShowToast();
@@ -111,7 +111,7 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   };
 
   // 編集
-  const clickEditSaveHandler = async (ingredient: string, item: MyItemType) => {
+  const clickEditSaveHandler = async (ingredient: string, item: FridgeItemType) => {
     try {
       await fetch(`${airTableRoot}${airTableBaseId}/Fridge/${item.id}`, {
         method: "PUT",
@@ -137,7 +137,7 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   };
 
   // 削除
-  const clickTrashHandler = async (item: MyItemType) => {
+  const clickTrashHandler = async (item: FridgeItemType) => {
     try {
       const res = await fetch(
         `${airTableRoot}${airTableBaseId}/Fridge/${item.id}`,

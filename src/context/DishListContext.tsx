@@ -267,59 +267,61 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
 
   // Add to Fridge
   const handleAddToFridge = async (dish: DishType, ingredient: string) => {
-    const ingredientsArr = dish.fields.ingredients.split(", ");
-    const newIngredientsArr = ingredientsArr.filter(
-      (item: string) => item !== ingredient
-    );
-    const newIngredientsStr = newIngredientsArr.join(", ");
-    // setIngredientsArr(newIngredientsArr);
+    // dish（パラメーター）のingredientsを配列にする
+    // const ingredientsArr = dish.fields.ingredients.split(", ");
 
-    // もし、ingredientsArrが空になったら、Itemごと削除する
-    // DELETE
-    if (newIngredientsArr.length === 0) {
-      try {
-        await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-        });
-        // showToast("success", "Item deleted!");
-        setDishList((prev) => prev.filter((i) => i.id !== dish.id));
-      } catch (error) {
-        showToast("error", "Something went wrong!");
-      }
-    } else {
-      // Item API PUT
-      try {
-        await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-          body: JSON.stringify({
-            fields: { ...dish.fields, ingredients: newIngredientsStr },
-          }),
-        });
-        setDishList((prev) =>
-          prev.map((i) => {
-            if (i.id === dish.id) {
-              return {
-                ...i,
-                fields: { ...i.fields, ingredients: newIngredientsStr },
-              };
-            }
-            return i;
-          })
-        );
-      } catch (error) {
-        showToast("error", "Something went wrong!");
-      }
-    }
+    // ingredientsArrから、クリックしたingredientを削除する
+    // const newIngredientsArr = ingredientsArr.filter(
+    //   (item: string) => item !== ingredient
+    // );
+    // newIngredientsArrを文字列にする
+    // const newIngredientsStr = newIngredientsArr.join(", ");
 
-    // Fridge API POST
+    // もし、ingredientsArrが空になったら、Itemごと削除する=>不要
+    // DELETE Dish API
+    // if (newIngredientsArr.length === 0) {
+    //   try {
+    //     await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
+    //       method: "DELETE",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${airTableApiKey}`,
+    //       },
+    //     });
+    //     setDishList((prev) => prev.filter((i) => i.id !== dish.id));
+    //   } catch (error) {
+    //     showToast("error", "Something went wrong!");
+    //   }
+    // } else {
+    //   // PUT Dish API=>不要？
+    //   try {
+    //     await fetch(`${airTableRoot}${airTableBaseId}/Dish/${dish.id}`, {
+    //       method: "PUT",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${airTableApiKey}`,
+    //       },
+    //       body: JSON.stringify({
+    //         fields: { ...dish.fields, ingredients: newIngredientsStr },
+    //       }),
+    //     });
+    //     setDishList((prev) =>
+    //       prev.map((i) => {
+    //         if (i.id === dish.id) {
+    //           return {
+    //             ...i,
+    //             fields: { ...i.fields, ingredients: newIngredientsStr },
+    //           };
+    //         }
+    //         return i;
+    //       })
+    //     );
+    //   } catch (error) {
+    //     showToast("error", "Something went wrong!");
+    //   }
+    // }
+
+    // POST to Fridge API
     try {
       await fetch(`${airTableRoot}${airTableBaseId}/Fridge/`, {
         // POST
@@ -332,6 +334,8 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
           fields: {
             ingredient,
             userId: uid,
+            recipeId: dish.fields.recipeId,
+            recipeTitle: dish.fields.dish,
           },
         }),
       });

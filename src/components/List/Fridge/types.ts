@@ -8,4 +8,6 @@ export type FridgeItemType = {
 export type FridgeItemFields = {
   ingredient: string;
   userId: string;
+  recipeId?: number;
+  recipeTitle?: string;
 };
