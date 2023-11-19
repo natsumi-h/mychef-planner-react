@@ -65,3 +65,7 @@ https://mychef-planner-react.vercel.app/
 
 ## Next Steps
 * 
+
+## References and Inspirations
+* [Airbnb](https://www.airbnb.jp/): Search bar/Filter buttons on the home page and overall UI design implemented by Chakra UI
+* [Kurashiru](https://www.kurashiru.com/): Overall user interface and experience of recipe app
