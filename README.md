@@ -39,9 +39,8 @@ https://mychef-planner-react.vercel.app/
 | Favorite*  |   | /favorite  |   |
 | List*  |   | /list  |   |
 | Fridge*  |   | /fridge  |   |
-| Sign in  |   | /signin  |   |
 
- *Protected Route directs to Sign in page when the user is not signed in
+ *Protected route that directs to Signin screen when the user is not signed in
 
 ## Technologies Used
 * Frontend framework
@@ -55,10 +54,10 @@ https://mychef-planner-react.vercel.app/
   * [Airtable](https://support.airtable.com/docs/airtable-web-api-using-filterbyformula-or-sort-parameters) - To store and manage user based favorite/shop/inventory list
   * [Firebase](https://firebase.google.com/) - Authentication 
 * Form validation
-  * React hook form
-  * Yup
+  * [React hook form](https://www.react-hook-form.com/)
+  * [Yup](https://www.npmjs.com/package/yup)
 * UI Library
-  * Chakra UI 
+  * [Chakra UI](https://chakra-ui.com/) 
 * Typescript
 
 ## Breakdown of Components
