@@ -91,6 +91,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
 
   // Dish削除
   const handleDeleteDish = async (dish: DishType) => {
+
     try {
       const res = await fetch(
         `${airTableRoot}${airTableBaseId}/Dish/${dish.id}`,
@@ -111,6 +112,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     } catch (error) {
       console.log(error);
       setError("Something went wrong!");
+      showToast("error", "Something went wrong!");
     }
   };
 

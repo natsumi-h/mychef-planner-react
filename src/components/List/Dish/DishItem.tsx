@@ -4,7 +4,6 @@ import { DishItemButtons } from "./DishItemButtons";
 import { DishItemContext } from "../../../context/DishItemContext";
 
 type DishItemProps = {
-  children: React.ReactNode;
   setIngredientsArr: React.Dispatch<React.SetStateAction<string[]>>;
 };
 

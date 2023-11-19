@@ -38,7 +38,7 @@ export const Dish: FC<DishProps> = ({ dish }) => {
 
           {/* Dish Buttons */}
           <Box>
-            <DishButtons dish={dish} setIngredientsArr={setIngredientsArr} />
+            <DishButtons setIngredientsArr={setIngredientsArr} dish={dish} />
           </Box>
         </Flex>
 
@@ -49,8 +49,7 @@ export const Dish: FC<DishProps> = ({ dish }) => {
               <DishItem
                 key={i}
                 setIngredientsArr={setIngredientsArr}
-              >
-              </DishItem>
+              ></DishItem>
             </DishItemContextProvider>
           );
         })}

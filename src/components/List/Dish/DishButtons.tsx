@@ -11,7 +11,6 @@ type DishButtonsProps = {
 };
 
 export const DishButtons: FC<DishButtonsProps> = ({
-  dish,
   setIngredientsArr,
 }) => {
   const {
@@ -53,7 +52,6 @@ export const DishButtons: FC<DishButtonsProps> = ({
       <DishModalComponent
         isOpen={isOpenModal}
         onClose={onCloseModal}
-        dish={dish}
         type="create"
         setIngredientsArr={setIngredientsArr}
       />
@@ -62,7 +60,6 @@ export const DishButtons: FC<DishButtonsProps> = ({
       <DishWindowConfirm
         isOpen={isOpenConfirm}
         onClose={onCloseConfirm}
-        dish={dish}
         type="delete dish"
       />
     </>

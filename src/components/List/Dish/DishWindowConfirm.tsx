@@ -29,7 +29,7 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
   const { handleDeleteDish, handleDeleteItem, handleAddToFridge } =
     useContext(DishListContext);
   const { ingredient, dish, setIsInFridge } = useContext(DishItemContext);
-
+  console.log(dish.id);
   const confirmHandler = async () => {
     setButtonLoading(true);
     if (type === "delete dish") {
