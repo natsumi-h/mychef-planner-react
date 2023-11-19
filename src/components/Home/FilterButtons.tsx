@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 export const FilterButtons = () => {
   const { getRecipes } = useContext(RecipeContext);
   const filterArr = [
-    "all",
+    "popular",
     "asian",
     "chinese",
     "japanese",
@@ -54,7 +54,7 @@ export const FilterButtons = () => {
           }}
           onClick={() => {
             reset();
-            getRecipes(filter === "all" ? "" : filter);
+            getRecipes(filter === "popular" ? "" : filter);
           }}
         >
           {filter.charAt(0).toUpperCase() + filter.slice(1)}
