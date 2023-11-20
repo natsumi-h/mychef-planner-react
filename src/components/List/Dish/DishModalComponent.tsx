@@ -1,16 +1,3 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  Input,
-  Button,
-  FormErrorMessage,
-} from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useState } from "react";
@@ -18,6 +5,7 @@ import { DishListContext } from "../../../context/DishListContext";
 import { ItemInputSchema, ItemInputType } from "../../../types/types";
 import { DishItemContext } from "../../../context/DishItemContext";
 import { DishType } from "./types";
+import { Modal } from "../../Parts/Modal";
 
 type DishModalProps = {
   isOpen: boolean;
@@ -32,8 +20,6 @@ export const DishModalComponent = ({
   type,
   dish,
 }: DishModalProps) => {
-  // const initialRef = React.useRef(null);
-  // const finalRef = React.useRef(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const { ingredient, dish: itemDish } = useContext(DishItemContext);
 
@@ -63,44 +49,15 @@ export const DishModalComponent = ({
 
   return (
     <Modal
-      // initialFocusRef={initialRef}
-      // finalFocusRef={finalRef}
       isOpen={isOpen}
       onClose={onClose}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>
-          {type === "edit"
-            ? "Edit ingredient"
-            : type === "create"
-            ? "Add ingredient"
-            : ""}
-        </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
-          <FormControl isInvalid={errors.input ? true : false}>
-            <Input
-              placeholder="Tomato"
-              defaultValue={ingredient.ingredient}
-              {...register("input")}
-            />
-            <FormErrorMessage>{errors?.input?.message}</FormErrorMessage>
-          </FormControl>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button
-            colorScheme="blue"
-            mr={3}
-            onClick={handleSubmit(onSubmit)}
-            isLoading={buttonLoading}
-          >
-            Save
-          </Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+      type={type}
+      errors={errors}
+      handleSubmit={handleSubmit}
+      onSubmit={onSubmit}
+      buttonLoading={buttonLoading}
+      register={register}
+      defaultValue={ingredient.ingredient}
+    ></Modal>
   );
 };

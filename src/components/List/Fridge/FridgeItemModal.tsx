@@ -1,23 +1,10 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  Input,
-  Button,
-  FormErrorMessage,
-} from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FC, useContext, useState } from "react";
 import { FridgeContext } from "../../../context/FridgeContext";
 import { FridgeItemType } from "./types";
 import { ItemInputSchema, ItemInputType } from "../../../types/types";
+import { Modal } from "../../Parts/Modal";
 
 type FridgeModalProps = {
   isOpen: boolean;
@@ -30,8 +17,8 @@ type FridgeModalProps = {
 export const FridgeItemModal: FC<FridgeModalProps> = ({
   isOpen,
   onClose,
-  item,
   type,
+  item,
 }) => {
   const { clickEditSaveHandler, clickCreateSaveHandler } =
     useContext(FridgeContext);
@@ -59,40 +46,16 @@ export const FridgeItemModal: FC<FridgeModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>
-          {type === "edit"
-            ? "Edit ingredient"
-            : type === "create"
-            ? "Add ingredient"
-            : ""}
-        </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
-          <FormControl isInvalid={errors.input ? true : false}>
-            <Input
-              placeholder="Tomato"
-              defaultValue={type === "edit" ? item?.fields?.ingredient : ""}
-              {...register("input")}
-            />
-            <FormErrorMessage>{errors?.input?.message}</FormErrorMessage>
-          </FormControl>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button
-            colorScheme="teal"
-            mr={3}
-            onClick={handleSubmit(onSubmit)}
-            isLoading={buttonLoading}
-          >
-            Save
-          </Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      type={type}
+      errors={errors}
+      handleSubmit={handleSubmit}
+      onSubmit={onSubmit}
+      buttonLoading={buttonLoading}
+      register={register}
+      defaultValue={type === "edit" && item ? item?.fields?.ingredient : ""}
+    ></Modal>
   );
 };

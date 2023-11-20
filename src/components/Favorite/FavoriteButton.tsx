@@ -1,8 +1,6 @@
 import { Icon, IconButton, useDisclosure } from "@chakra-ui/react";
 import { FavoriteWindowConfirm } from "./FavoriteWindowConfirm";
 import { FiHeart } from "react-icons/fi";
-
-// import { useShowToast } from "../../hooks/useShowToast";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { FavoriteRecipeContext } from "../../context/FavoriteRecipeContext";
@@ -10,21 +8,17 @@ import { FaHeart } from "react-icons/fa";
 import { RecipeCardProps } from "../Parts/RecipeCard";
 
 export const FavoriteButton = ({ recipe }: RecipeCardProps) => {
-  // const showToast = useShowToast();
   const { user, setSignInMode } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { favRecipes, deleteFavRecipe, addToFavorite } = useContext(
     FavoriteRecipeContext
   );
-  // const ifRecipeIsFavorite = getFavRecipesIdArr().includes(recipe.recipeId);
   const ifRecipeIsFavorite = favRecipes.some(
     (favRecipe) => favRecipe.fields.recipeId === recipe.id
   );
 
   const onClickFavIcon = () => {
     if (!user) {
-      // showToast("error", "Please sign in first!");
-      // return;
       setSignInMode(true);
       return;
     }

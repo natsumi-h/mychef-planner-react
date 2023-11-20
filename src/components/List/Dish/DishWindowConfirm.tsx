@@ -61,7 +61,7 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
             {type === "delete dish"
               ? `Delete ${dish?.fields?.dish}`
               : type === "delete item"
-              ? `Delete ${ingredient}`
+              ? `Delete ${ingredient.ingredient}`
               : `Add ${ingredient} to Fridge`}
           </AlertDialogHeader>
 
