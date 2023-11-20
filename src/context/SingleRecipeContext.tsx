@@ -2,8 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import {
-  spoonacularRoot,
-  spoonacularApiKey,
   airTableRoot,
   airTableBaseId,
   airTableApiKey,
@@ -11,6 +9,7 @@ import {
 import { useShowToast } from "../hooks/useShowToast.js";
 import { ReactChildren, Recipe } from "../types/types.js";
 import { DishFields, DishType } from "../components/List/Dish/types.js";
+import { useFetchRecipe } from "../hooks/useFetchRecipe.js";
 
 type SingleRecipeContextType = {
   recipe: Recipe;
@@ -73,19 +72,13 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   const { title, extendedIngredients } = recipe;
   const [dishList, setDishList] = useState<DishType[]>([]);
   const [isRecipeInDishList, setIsRecipeInDishList] = useState<boolean>(false);
+  const { fetchSingleRecipe } = useFetchRecipe();
 
   const getRecipe = async () => {
     setError("");
     setIsLoading(true);
     try {
-      const res = await fetch(
-        `${spoonacularRoot}recipes/${pathId}/information?apiKey=${spoonacularApiKey}&includeNutrition=false`
-      );
-      if (!res.ok) {
-        setError("Something went wrong!");
-        return;
-      }
-      const data = await res.json();
+      const data = await fetchSingleRecipe(pathId);
       setRecipe(data);
     } catch (err: unknown) {
       console.log(err);

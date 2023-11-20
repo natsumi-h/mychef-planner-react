@@ -16,7 +16,6 @@ type DishWindowConfirmProps = {
   isOpen: boolean;
   onClose: () => void;
   type: "delete dish" | "delete item" | "fridge";
-  setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
   dish?: DishType;
 };
 
@@ -24,18 +23,13 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
   isOpen,
   onClose,
   type,
-  setIngredientsArr,
   dish,
 }) => {
   const cancelRef = React.useRef<HTMLButtonElement>(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const { handleDeleteDish, handleDeleteItem, handleAddToFridge } =
     useContext(DishListContext);
-  const {
-    ingredient,
-    dish: itemDish,
-    // setIsInFridge,
-  } = useContext(DishItemContext);
+  const { ingredient, dish: itemDish } = useContext(DishItemContext);
 
   const confirmHandler = async () => {
     setButtonLoading(true);
@@ -46,10 +40,6 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
     // アイテム削除
     if (type === "delete item") {
       await handleDeleteItem(itemDish, ingredient.ingredient);
-      setIngredientsArr &&
-        setIngredientsArr((prev) =>
-          prev.filter((i) => i !== ingredient.ingredient)
-        );
     }
     // Add to Fridge
     if (type === "fridge") {

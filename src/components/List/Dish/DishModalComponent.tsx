@@ -23,7 +23,6 @@ type DishModalProps = {
   isOpen: boolean;
   onClose: () => void;
   type: "edit" | "create";
-  setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
   dish?: DishType;
 };
 
@@ -31,7 +30,6 @@ export const DishModalComponent = ({
   isOpen,
   onClose,
   type,
-  setIngredientsArr,
   dish,
 }: DishModalProps) => {
   // const initialRef = React.useRef(null);
@@ -53,20 +51,10 @@ export const DishModalComponent = ({
     // アイテム編集
     if (type === "edit" && data.input) {
       await clickEditSaveHandler(data.input, itemDish, ingredient.ingredient);
-      setIngredientsArr &&
-        setIngredientsArr((prev) =>
-          prev.map((i) => {
-            if (i === ingredient.ingredient) {
-              return data.input;
-            }
-            return i;
-          })
-        );
     }
     // アイテム作成
     if (type === "create" && data.input && dish) {
       await clickCreateSaveHandler(data.input, dish);
-      setIngredientsArr && setIngredientsArr((prev) => [data.input, ...prev]);
       reset({ input: "" });
     }
     setButtonLoading(false);

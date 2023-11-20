@@ -7,13 +7,9 @@ import { FC } from "react";
 
 type DishButtonsProps = {
   dish: DishType;
-  // setIngredientsArr?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export const DishButtons: FC<DishButtonsProps> = ({
-  // setIngredientsArr,
-  dish,
-}) => {
+export const DishButtons: FC<DishButtonsProps> = ({ dish }) => {
   const {
     isOpen: isOpenModal,
     onOpen: onOpenModal,
@@ -25,7 +21,6 @@ export const DishButtons: FC<DishButtonsProps> = ({
     onOpen: onOpenConfirm,
     onClose: onCloseConfirm,
   } = useDisclosure();
-
 
   return (
     <>

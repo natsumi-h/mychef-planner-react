@@ -19,8 +19,9 @@ export const FridgeItem: FC<FridgeItemProps> = ({ item }) => {
           columnGap={"10px"}
         >
           <Flex
-            alignItems={{ base: "flex-start", md: "center" }}
+            // alignItems={{ base: "flex-start", md: "center" }}
             flexDirection={{ base: "column", md: "row" }}
+            alignItems={"center"}
           >
             <Box flexShrink={"0"}>{item.fields.ingredient}</Box>
             {item.fields.recipeId && (
@@ -32,7 +33,7 @@ export const FridgeItem: FC<FridgeItemProps> = ({ item }) => {
                 bg={"secondary"}
                 color={"text"}
                 ml={{ base: "0", md: "10px" }}
-                mt={{ base: "5px", md: "0" }}
+                mt={{ base: "5px", md: "5px" }}
                 display={{ base: "none", md: "inline" }}
                 lineHeight={"inherit"}
               >

@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { spoonacularApiKey, spoonacularRoot } from "../config/config";
 import { ReactChildren, RecipeCardType } from "../types/types";
+import { useFetchRecipe } from "../hooks/useFetchRecipe";
 
 type RecipeContextType = {
   searchValue: string;
@@ -50,24 +50,13 @@ export const RecipeContextProvider = ({ children }: ReactChildren) => {
   ]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { fetchRecipes } = useFetchRecipe();
 
   const getRecipes = async (value: string) => {
     setRecipes([]);
-    value = value.toLowerCase();
-    if (value.includes(" ")) {
-      value = value.replace(/ /g, ",");
-    }
     setLoading(true);
     try {
-      const res = await fetch(
-        value === ""
-          ? `${spoonacularRoot}recipes/random?apiKey=${spoonacularApiKey}&number=60`
-          : `${spoonacularRoot}recipes/random?apiKey=${spoonacularApiKey}&tags=${value}&number=60`
-      );
-      if (!res.ok) {
-        setError("Something went wrong!");
-      }
-      const data = await res.json();
+      const data = await fetchRecipes(value);
       setRecipes(data.recipes);
     } catch (err: unknown) {
       setError("Something went wrong!");

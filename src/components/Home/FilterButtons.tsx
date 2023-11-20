@@ -24,12 +24,12 @@ export const FilterButtons = () => {
       px={{ base: 0, md: "20px" }}
       py={"20px"}
       justifyContent={{ base: "start", md: "center" }}
-      overflowX={{base:"auto", md:"unset"}}
-      flexWrap={{base:"nowrap", md:"wrap"}}
+      overflowX={{ base: "auto", md: "unset" }}
+      flexWrap={{ base: "nowrap", md: "wrap" }}
     >
       {/* <Box mt={"20px"}> */}
       {/* <Splide
-        aria-label="お気に入りの写真"
+        aria-label="label example"
         options={{
           pagination: false,
           autoWidth: true,

@@ -11,7 +11,7 @@ type DishProps = {
 };
 
 export const Dish: FC<DishProps> = ({ dish }) => {
-  const ingredients = dish.ingredients;
+  const { ingredients } = dish;
 
   return (
     <Box>

@@ -25,9 +25,7 @@ export const DishItem = () => {
           </Tag>
         </Flex>
 
-        <DishItemButtons
-        // setIngredientsArr={setIngredientsArr}
-        />
+        <DishItemButtons />
       </Flex>
       <Divider />
     </Box>
