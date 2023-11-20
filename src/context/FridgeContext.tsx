@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactChildren } from "../types/types";
 import { AuthContext } from "./AuthContext";
-import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
 import { FridgeItemType, FridgeItems } from "../components/List/Fridge/types";
+import { useFetchAirTable } from "../hooks/useFetchAirTable";
 
 type FridgeContextType = {
   items: FridgeItems;
@@ -12,7 +12,10 @@ type FridgeContextType = {
   error: string;
   loading: boolean;
   clickCreateSaveHandler: (ingredient: string) => Promise<void>;
-  clickEditSaveHandler: (ingredient: string, item: FridgeItemType) => Promise<void>;
+  clickEditSaveHandler: (
+    ingredient: string,
+    item: FridgeItemType
+  ) => Promise<void>;
   clickTrashHandler: (item: FridgeItemType) => Promise<void>;
 };
 
@@ -55,28 +58,16 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const showToast = useShowToast();
+  // const { fetchFridge } = useFetchFridge();
+  const { fetchAirTable } = useFetchAirTable();
 
   //  取得
   const getMyList = async () => {
     setItems([]);
     setLoading(true);
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Fridge`, {
-        headers: {
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-      });
-      const data = await res.json();
-
-      const filteredItems = data.records.filter(
-        (item: {
-          fields: {
-            userId: string;
-          };
-        }) => item?.fields?.userId === uid
-      );
-
-      setItems(filteredItems);
+      const data = await fetchAirTable("GET", "Fridge");
+      setItems(data.records);
     } catch (error) {
       console.log(error);
       setError("Something went wrong!");
@@ -89,20 +80,13 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   const clickCreateSaveHandler = async (ingredient: string) => {
     if (!ingredient) return;
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Fridge/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
+      const body = JSON.stringify({
+        fields: {
+          ingredient: ingredient,
+          userId: uid,
         },
-        body: JSON.stringify({
-          fields: {
-            ingredient: ingredient,
-            userId: uid,
-          },
-        }),
       });
-      const data = await res.json();
+      const data = await fetchAirTable("POST", "Fridge", body);
       setItems([data, ...items]);
       showToast("success", "Item added!");
     } catch (error) {
@@ -111,18 +95,15 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   };
 
   // 編集
-  const clickEditSaveHandler = async (ingredient: string, item: FridgeItemType) => {
+  const clickEditSaveHandler = async (
+    ingredient: string,
+    item: FridgeItemType
+  ) => {
     try {
-      await fetch(`${airTableRoot}${airTableBaseId}/Fridge/${item.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-        body: JSON.stringify({
-          fields: { ...item.fields, ingredient },
-        }),
+      const body = JSON.stringify({
+        fields: { ...item.fields, ingredient },
       });
+      await fetchAirTable("PUT", "Fridge", body, item.id);
       setItems((prev) =>
         prev.map((prevItem) =>
           prevItem.id === item.id
@@ -139,21 +120,7 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   // 削除
   const clickTrashHandler = async (item: FridgeItemType) => {
     try {
-      const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Fridge/${item.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-        }
-      );
-      if (!res.ok) {
-        const data = await res.json();
-        console.log(data);
-        throw new Error(data.error);
-      }
+      await fetchAirTable("DELETE", "Fridge", undefined, item.id);
 
       showToast("success", "Item deleted!");
       setItems((prev) => prev.filter((prevItem) => prevItem.id !== item.id));

@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactChildren, RecipeCardType } from "../types/types";
-import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
 import { AuthContext } from "./AuthContext";
+import { useFetchAirTable } from "../hooks/useFetchAirTable";
 
 type FavoriteRecipe = {
   id: string;
@@ -76,28 +76,13 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const showToast = useShowToast();
+  const { fetchAirTable } = useFetchAirTable();
 
   const getFavRecipes = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Favorite`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-      });
-      if (!res.ok) {
-        setError("Something went wrong!");
-      }
-      const data = await res.json();
-      //   dataの中からuserIDが一致するものだけを抽出する
-      const filteredData = data.records.filter(
-        (record: FavoriteRecipe) => record.fields.userId === user?.uid
-      );
-
-      // ここには素のデータを格納すべき
-      setFavRecipes(filteredData);
+      const data = await fetchAirTable("GET", "Favorite");
+      setFavRecipes(data?.records);
     } catch (err: unknown) {
       setError("Something went wrong!");
     } finally {
@@ -111,23 +96,16 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
     );
     if (!favRecipe) return;
     try {
-      const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Favorite/${favRecipe.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-        }
+      const data = await fetchAirTable(
+        "DELETE",
+        "Favorite",
+        undefined,
+        favRecipe.id
       );
-      if (!res.ok) throw new Error("Something went wrong!");
-      const data = await res.json();
       showToast("success", "Removed from Favorite!");
       setFavRecipes((prev) =>
         prev.filter((recipe) => recipe.fields.recipeId !== recipeId)
       );
-      // setFavUpdated((prev) => !prev);
       return data;
     } catch (error) {
       console.log(error);
@@ -142,24 +120,16 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   }) => {
     const { id, title, image } = recipe;
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Favorite`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
+      const body = JSON.stringify({
+        fields: {
+          recipeId: id,
+          title,
+          image,
+          userId: user?.uid,
         },
-
-        body: JSON.stringify({
-          fields: {
-            recipeId: id,
-            title,
-            image,
-            userId: user?.uid,
-          },
-        }),
       });
-      if (!res.ok) throw new Error("Something went wrong!");
-      const data = await res.json();
+      const data = await fetchAirTable("POST", "Favorite", body);
+
       showToast("success", "Added to Favorite!");
       setFavRecipes((prev) => [data, ...prev]);
       return data;

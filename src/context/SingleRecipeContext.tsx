@@ -1,15 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import {
-  airTableRoot,
-  airTableBaseId,
-  airTableApiKey,
-} from "../config/config.js";
 import { useShowToast } from "../hooks/useShowToast.js";
 import { ReactChildren, Recipe } from "../types/types.js";
-import { DishFields, DishType } from "../components/List/Dish/types.js";
+import { DishType } from "../components/List/Dish/types.js";
 import { useFetchRecipe } from "../hooks/useFetchRecipe.js";
+import { useFetchAirTable } from "../hooks/useFetchAirTable.js";
 
 type SingleRecipeContextType = {
   recipe: Recipe;
@@ -73,6 +69,7 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   const [dishList, setDishList] = useState<DishType[]>([]);
   const [isRecipeInDishList, setIsRecipeInDishList] = useState<boolean>(false);
   const { fetchSingleRecipe } = useFetchRecipe();
+  const { fetchAirTable } = useFetchAirTable();
 
   const getRecipe = async () => {
     setError("");
@@ -91,20 +88,9 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   //  getDishList
   const getDishList = async () => {
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Dish`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-      });
-      if (!res.ok) throw new Error("Something went wrong!");
-      const data = await res.json();
-      const filteredData = data.records.filter(
-        (record: { fields: DishFields }) => record.fields.userId === user?.uid
-      );
-      setDishList(filteredData);
-      return filteredData;
+      const data = await fetchAirTable("GET", "Dish");
+      setDishList(data.records);
+      return data.records;
     } catch (error) {
       console.log(error);
     }
@@ -125,23 +111,15 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
       .join(", ");
 
     try {
-      const res = await fetch(`${airTableRoot}${airTableBaseId}/Dish`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
+      const body = JSON.stringify({
+        fields: {
+          recipeId: pathIdNum,
+          ingredients: ingredientNamesStr,
+          userId: user?.uid,
+          dish: title,
         },
-        body: JSON.stringify({
-          fields: {
-            recipeId: pathIdNum,
-            ingredients: ingredientNamesStr,
-            userId: user?.uid,
-            dish: title,
-          },
-        }),
       });
-      if (!res.ok) throw new Error("Something went wrong!");
-      const data = await res.json();
+      const data = await fetchAirTable("POST", "Dish", body);
       setIsRecipeInDishList(true);
       showToast("success", "Item added to your shopping list!");
       setDishList((prev) => [...prev, data]);

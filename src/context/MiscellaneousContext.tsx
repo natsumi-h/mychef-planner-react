@@ -2,8 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { ReactChildren } from "../types/types";
 import { AuthContext } from "./AuthContext";
 import { MyItemType, MyItems } from "../components/List/Miscellaneous/types";
-import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
+import { useFetchAirTable } from "../hooks/useFetchAirTable";
 
 type MiscellaneousContextType = {
   items: MyItems;
@@ -62,30 +62,14 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const showToast = useShowToast();
+  const { fetchAirTable } = useFetchAirTable();
 
   //  取得
   const getMyList = async () => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Miscellaneous`,
-        {
-          headers: {
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-        }
-      );
-      const data = await res.json();
-
-      const filteredItems = data.records.filter(
-        (item: {
-          fields: {
-            userId: string;
-          };
-        }) => item?.fields?.userId === uid
-      );
-
-      setItems(filteredItems);
+      const data = await fetchAirTable("GET", "Miscellaneous");
+      setItems(data.records);
     } catch (error) {
       console.log(error);
       setError("Something went wrong!");
@@ -98,23 +82,13 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   const clickCreateSaveHandler = async (ingredient: string) => {
     if (!ingredient) return;
     try {
-      const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Miscellaneous/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-          body: JSON.stringify({
-            fields: {
-              ingredient: ingredient,
-              userId: uid,
-            },
-          }),
-        }
-      );
-      const data = await res.json();
+      const body = JSON.stringify({
+        fields: {
+          ingredient: ingredient,
+          userId: uid,
+        },
+      });
+      const data = await fetchAirTable("POST", "Miscellaneous", body);
       setItems([data, ...items]);
       showToast("success", "Item added!");
     } catch (error) {
@@ -125,30 +99,16 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   // Add to Fridge
   const addToFridgeHandler = async (item: MyItemType) => {
     try {
-      await fetch(`${airTableRoot}${airTableBaseId}/Fridge/`, {
-        // POST
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
+      const body = JSON.stringify({
+        fields: {
+          ingredient: item.fields.ingredient,
+          userId: uid,
         },
-        body: JSON.stringify({
-          fields: {
-            ingredient: item.fields.ingredient,
-            userId: uid,
-          },
-        }),
       });
+      await fetchAirTable("POST", "Fridge", body);
 
       // DELETE
-      await fetch(`${airTableRoot}${airTableBaseId}/Miscellaneous/${item.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-      });
-
+      await fetchAirTable("DELETE", "Miscellaneous", undefined, item.id);
       setItems((prev) => prev.filter((prevItem) => prevItem.id !== item.id));
       showToast("success", "Item added to your fridge!");
     } catch (error) {
@@ -159,16 +119,10 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   // 編集
   const clickEditSaveHandler = async (ingredient: string, item: MyItemType) => {
     try {
-      await fetch(`${airTableRoot}${airTableBaseId}/Miscellaneous/${item.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
-        },
-        body: JSON.stringify({
-          fields: { ...item.fields, ingredient },
-        }),
+      const body = JSON.stringify({
+        fields: { ...item.fields, ingredient },
       });
+      await fetchAirTable("PUT", "Miscellaneous", body, item.id);
       setItems((prev) =>
         prev.map((prevItem) =>
           prevItem.id === item.id
@@ -185,22 +139,7 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   // 削除
   const clickTrashHandler = async (item: MyItemType) => {
     try {
-      const res = await fetch(
-        `${airTableRoot}${airTableBaseId}/Miscellaneous/${item.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${airTableApiKey}`,
-          },
-        }
-      );
-      if (!res.ok) {
-        const data = await res.json();
-        console.log(data);
-        throw new Error(data.error);
-      }
-
+      await fetchAirTable("DELETE", "Miscellaneous", undefined, item.id);
       showToast("success", "Item deleted!");
       setItems((prev) => prev.filter((prevItem) => prevItem.id !== item.id));
     } catch (error) {

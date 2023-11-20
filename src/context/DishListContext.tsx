@@ -1,10 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ReactChildren } from "../types/types";
 import { AuthContext } from "./AuthContext";
-import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { useShowToast } from "../hooks/useShowToast";
 import { DishList, DishType } from "../components/List/Dish/types";
-import { useFetchDish } from "../hooks/useFetchDish";
+import { useFetchAirTable } from "../hooks/useFetchAirTable";
 
 type DishListContextType = {
   error: string;
@@ -64,7 +63,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   const [loading, setLoading] = useState<boolean>(false);
   const showToast = useShowToast();
 
-  const { fetchDish } = useFetchDish();
+  const { fetchAirTable } = useFetchAirTable();
 
   useEffect(() => {
     getDishList();
@@ -74,26 +73,13 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   const getDishList = async () => {
     setLoading(true);
     try {
-      const data = await fetchDish("GET");
+      const data = await fetchAirTable("GET", "Dish");
 
       // Fridgeのアイテムを取得*
       const getItemIsInFridge = async () => {
-        try {
-          const res = await fetch(
-            `${airTableRoot}${airTableBaseId}/Fridge?filterByFormula=%7BuserId%7D+%3D+%22${uid}%22`,
-            {
-              headers: {
-                Authorization: `Bearer ${airTableApiKey}`,
-              },
-            }
-          );
-          const data = await res.json();
-          return data.records;
-        } catch (error) {
-          console.log(error);
-        }
+        const data = await fetchAirTable("GET", "Fridge");
+        return data.records;
       };
-
       const fridgeItems = await getItemIsInFridge();
 
       const newDishList = data.records.map((dish: DishType) => {
@@ -129,7 +115,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   // Dish削除
   const handleDeleteDish = async (dish: DishType) => {
     try {
-      await fetchDish("DELETE", undefined, dish.id);
+      await fetchAirTable("DELETE", "Dish", undefined, dish.id);
       showToast("success", "Item deleted!");
       setDishList((prev) => prev.filter((i) => i.id !== dish.id));
     } catch (error) {
@@ -148,7 +134,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...dish.fields, ingredients: newIngredients },
       });
-      await fetchDish("PUT", body, dish.id);
+      await fetchAirTable("PUT", "Dish", body, dish.id);
 
       // 作成したアイテムが所属するdishのidと、mapのidが一致したら、そのdishのingredientsを更新する
       setDishList((prev) =>
@@ -195,7 +181,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...dish.fields, ingredients: newIngredients },
       });
-      await fetchDish("PUT", body, dish.id);
+      await fetchAirTable("PUT", "Dish", body, dish.id);
 
       // 編集したアイテムが所属するdishのidと、mapのidが一致したら、そのdishのingredientsを更新する
       setDishList((prev) =>
@@ -236,7 +222,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     // DELETE
     if (newIngredientsArr.length === 0) {
       try {
-        await fetchDish("DELETE", undefined, dish.id);
+        await fetchAirTable("DELETE", "Dish", undefined, dish.id);
         showToast("success", "Item deleted!");
         // idが一致しないものだけを残す
         setDishList((prev) => prev.filter((i) => i.id !== dish.id));
@@ -251,7 +237,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...dish.fields, ingredients: newIngredientsStr },
       });
-      await fetchDish("PUT", body, dish.id);
+      await fetchAirTable("PUT", "Dish", body, dish.id);
       setDishList((prev) =>
         prev.map((i) => {
           if (i.id === dish.id) {
@@ -272,26 +258,19 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     }
   };
 
-  // Add to Fridge*
+  // Add to Fridge
   const handleAddToFridge = async (dish: DishType, ingredient: string) => {
     // POST to Fridge API
     try {
-      await fetch(`${airTableRoot}${airTableBaseId}/Fridge/`, {
-        // POST
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${airTableApiKey}`,
+      const body = JSON.stringify({
+        fields: {
+          ingredient,
+          userId: uid,
+          recipeId: dish.fields.recipeId,
+          recipeTitle: dish.fields.dish,
         },
-        body: JSON.stringify({
-          fields: {
-            ingredient,
-            userId: uid,
-            recipeId: dish.fields.recipeId,
-            recipeTitle: dish.fields.dish,
-          },
-        }),
       });
+      await fetchAirTable("POST", "Fridge", body);
       setDishList((prev) =>
         prev.map((i) => {
           if (i.id === dish.id) {
