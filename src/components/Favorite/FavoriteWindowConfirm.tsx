@@ -1,13 +1,5 @@
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  Button,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
+import { WindowConfirm } from "../Parts/WindowConfirm";
 
 type WindowConfirmProps = {
   isOpen: boolean;
@@ -24,7 +16,6 @@ export const FavoriteWindowConfirm = ({
   header,
   confirmHandler,
 }: WindowConfirmProps) => {
-  const cancelRef = React.useRef<HTMLButtonElement>(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
 
   const handleOnClick = async () => {
@@ -34,36 +25,18 @@ export const FavoriteWindowConfirm = ({
   };
 
   return (
-    <AlertDialog
+    <WindowConfirm
       isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
       onClose={onClose}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {type === "remove"
-              ? `Remove ${header} from favorite`
-              : `Add ${header} to favorite`}
-          </AlertDialogHeader>
-
-          <AlertDialogBody>Are you sure?</AlertDialogBody>
-
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button
-              colorScheme={type === "remove" ? `red` : `teal`}
-              onClick={handleOnClick}
-              ml={3}
-              isLoading={buttonLoading}
-            >
-              {type === "remove" ? "Remove" : "Add"}
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+      header={
+        type === "remove"
+          ? `Remove ${header} from favorite`
+          : `Add ${header} to favorite`
+      }
+      buttonLoading={buttonLoading}
+      buttonText={type === "remove" ? "Remove" : "Add"}
+      confirmHandler={handleOnClick}
+      colorScheme={type === "remove" ? "red" : "teal"}
+    ></WindowConfirm>
   );
 };

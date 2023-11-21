@@ -75,7 +75,7 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     try {
       const data = await fetchAirTable("GET", "Dish");
 
-      // Fridgeのアイテムを取得*
+      // Fridgeのアイテムを取得
       const getItemIsInFridge = async () => {
         const data = await fetchAirTable("GET", "Fridge");
         return data.records;

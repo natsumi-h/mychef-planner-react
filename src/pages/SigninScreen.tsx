@@ -1,12 +1,9 @@
-// import { UserAuth } from "../context/AuthContext";
-// const { googleSignin } = UserAuth();
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { MainBox } from "../components/Layout/MainBox";
 import { useShowToast } from "../hooks/useShowToast";
 import { Button, Center, Text } from "@chakra-ui/react";
-// import { redirect } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
 type Props = {

@@ -6,8 +6,6 @@ import { SpHeader } from "./Header/SpHeader";
 import { PcFooter } from "./Footer/PcFooter";
 import { SpFooter } from "./Footer/SpFooter";
 
-// fontSize={{ base: "24px", md: "40px", lg: "56px" }}
-
 export const Layout = () => {
   return (
     <Flex flexDirection="column" minH={"100vh"} position={"relative"}>

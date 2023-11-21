@@ -1,16 +1,8 @@
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  Button,
-} from "@chakra-ui/react";
-import React, { FC, useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { DishListContext } from "../../../context/DishListContext";
 import { DishItemContext } from "../../../context/DishItemContext";
 import { DishType } from "./types";
+import { WindowConfirm } from "../../Parts/WindowConfirm";
 
 type DishWindowConfirmProps = {
   isOpen: boolean;
@@ -25,7 +17,6 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
   type,
   dish,
 }) => {
-  const cancelRef = React.useRef<HTMLButtonElement>(null);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const { handleDeleteDish, handleDeleteItem, handleAddToFridge } =
     useContext(DishListContext);
@@ -50,38 +41,20 @@ export const DishWindowConfirm: FC<DishWindowConfirmProps> = ({
   };
 
   return (
-    <AlertDialog
+    <WindowConfirm
       isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
       onClose={onClose}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {type === "delete dish"
-              ? `Delete ${dish?.fields?.dish}`
-              : type === "delete item"
-              ? `Delete ${ingredient.ingredient}`
-              : `Add ${ingredient} to Fridge`}
-          </AlertDialogHeader>
-
-          <AlertDialogBody>Are you sure?</AlertDialogBody>
-
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button
-              isLoading={buttonLoading}
-              colorScheme={type === "fridge" ? "teal" : "red"}
-              onClick={confirmHandler}
-              ml={3}
-            >
-              {type === "fridge" ? "Add" : "Delete"}
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+      header={
+        type === "delete dish"
+          ? `Delete ${dish?.fields?.dish}`
+          : type === "delete item"
+          ? `Delete ${ingredient.ingredient}`
+          : `Add ${ingredient.ingredient} to Fridge`
+      }
+      buttonLoading={buttonLoading}
+      buttonText={type === "fridge" ? "Add" : "Delete"}
+      confirmHandler={confirmHandler}
+      colorScheme={type === "fridge" ? "teal" : "red"}
+    ></WindowConfirm>
   );
 };

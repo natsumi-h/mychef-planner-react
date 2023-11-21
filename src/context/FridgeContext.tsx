@@ -58,7 +58,6 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const showToast = useShowToast();
-  // const { fetchFridge } = useFetchFridge();
   const { fetchAirTable } = useFetchAirTable();
 
   //  取得

@@ -19,7 +19,6 @@ export const FridgeItem: FC<FridgeItemProps> = ({ item }) => {
           columnGap={"10px"}
         >
           <Flex
-            // alignItems={{ base: "flex-start", md: "center" }}
             flexDirection={{ base: "column", md: "row" }}
             alignItems={"center"}
           >
@@ -28,8 +27,6 @@ export const FridgeItem: FC<FridgeItemProps> = ({ item }) => {
               <Tag
                 rounded={"full"}
                 size={"sm"}
-                // colorScheme={"teal"}
-                // variant="solid"
                 bg={"secondary"}
                 color={"text"}
                 ml={{ base: "0", md: "10px" }}
