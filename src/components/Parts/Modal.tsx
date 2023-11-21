@@ -78,7 +78,7 @@ export const Modal: FC<ModalProps> = ({
 
         <ModalFooter>
           <Button
-            colorScheme="blue"
+            colorScheme="teal"
             mr={3}
             onClick={handleSubmit(onSubmit)}
             isLoading={buttonLoading}
