@@ -60,7 +60,7 @@ https://mychef-planner-react.vercel.app/
   * [Chakra UI](https://chakra-ui.com/) 
 * Typescript
 
-## Breakdown of Components
+## Key challenges/Learnings/Takeaways
 * 
 
 ## Next Steps
