@@ -59,6 +59,8 @@ https://mychef-planner-react.vercel.app/
 * UI Library
   * [Chakra UI](https://chakra-ui.com/) 
 * Typescript
+* PaaS
+  * [Vercel](https://vercel.com/)
 
 ## Key challenges/Learnings/Takeaways
 ### State Liftup
