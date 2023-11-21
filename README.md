@@ -61,10 +61,18 @@ https://mychef-planner-react.vercel.app/
 * Typescript
 
 ## Key challenges/Learnings/Takeaways
-* 
+### State Liftup
+#### Why useContext?
+Decided to implement `useContext` for the state management because:-
+* To avoid repetetive props drilling.
+* To store state-update logic in one location for better visibillity of the code.
+  
+### Custom Hooks
+Due to that API fetch happens in various functions/components, decided to generate `useFetchAirTable` custom hook particularlly to fetch API and return data (depending on the `tableType`/`method`/`body` passed) so that the app doesn't have as much repetitive logic.
 
 ## Next Steps
-* 
+* Unit test to secure all the logic works.
+* Measurement to refrain from unnecessary rendering by `useMemo`/`useCallback`
 
 ## References and Inspirations
 * [Airbnb](https://www.airbnb.jp/): Search bar/Filter buttons on the home page and overall UI design implemented by Chakra UI
