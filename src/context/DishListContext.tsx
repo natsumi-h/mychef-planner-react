@@ -73,11 +73,19 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   const getDishList = async () => {
     setLoading(true);
     try {
-      const data = await fetchAirTable("GET", "Dish");
+      const data = await fetchAirTable({
+        method: "GET",
+        tableType: "Dish",
+        body: undefined,
+        id: undefined,
+      });
 
       // Fridgeのアイテムを取得
       const getItemIsInFridge = async () => {
-        const data = await fetchAirTable("GET", "Fridge");
+        const data = await fetchAirTable({
+          method: "GET",
+          tableType: "Fridge",
+        });
         return data.records;
       };
       const fridgeItems = await getItemIsInFridge();
@@ -115,7 +123,11 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
   // Dish削除
   const handleDeleteDish = async (dish: DishType) => {
     try {
-      await fetchAirTable("DELETE", "Dish", undefined, dish.id);
+      await fetchAirTable({
+        method: "DELETE",
+        tableType: "Dish",
+        id: dish.id,
+      });
       showToast("success", "Item deleted!");
       setDishList((prev) => prev.filter((i) => i.id !== dish.id));
     } catch (error) {
@@ -134,7 +146,12 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...dish.fields, ingredients: newIngredients },
       });
-      await fetchAirTable("PUT", "Dish", body, dish.id);
+      await fetchAirTable({
+        method: "PUT",
+        tableType: "Dish",
+        body,
+        id: dish.id,
+      });
 
       // 作成したアイテムが所属するdishのidと、mapのidが一致したら、そのdishのingredientsを更新する
       setDishList((prev) =>
@@ -181,7 +198,12 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...dish.fields, ingredients: newIngredients },
       });
-      await fetchAirTable("PUT", "Dish", body, dish.id);
+      await fetchAirTable({
+        method: "PUT",
+        tableType: "Dish",
+        body,
+        id: dish.id,
+      });
 
       // 編集したアイテムが所属するdishのidと、mapのidが一致したら、そのdishのingredientsを更新する
       setDishList((prev) =>
@@ -222,7 +244,11 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
     // DELETE
     if (newIngredientsArr.length === 0) {
       try {
-        await fetchAirTable("DELETE", "Dish", undefined, dish.id);
+        await fetchAirTable({
+          method: "DELETE",
+          tableType: "Dish",
+          id: dish.id,
+        });
         showToast("success", "Item deleted!");
         // idが一致しないものだけを残す
         setDishList((prev) => prev.filter((i) => i.id !== dish.id));
@@ -237,7 +263,12 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...dish.fields, ingredients: newIngredientsStr },
       });
-      await fetchAirTable("PUT", "Dish", body, dish.id);
+      await fetchAirTable({
+        method: "PUT",
+        tableType: "Dish",
+        body,
+        id: dish.id,
+      });
       setDishList((prev) =>
         prev.map((i) => {
           if (i.id === dish.id) {
@@ -270,7 +301,11 @@ export const DishListContextProvider = ({ children }: ReactChildren) => {
           recipeTitle: dish.fields.dish,
         },
       });
-      await fetchAirTable("POST", "Fridge", body);
+      await fetchAirTable({
+        method: "POST",
+        tableType: "Fridge",
+        body,
+      });
       setDishList((prev) =>
         prev.map((i) => {
           if (i.id === dish.id) {

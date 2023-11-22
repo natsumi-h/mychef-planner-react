@@ -68,7 +68,10 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   const getMyList = async () => {
     setLoading(true);
     try {
-      const data = await fetchAirTable("GET", "Miscellaneous");
+      const data = await fetchAirTable({
+        method: "GET",
+        tableType: "Miscellaneous",
+      });
       setItems(data.records);
     } catch (error) {
       console.log(error);
@@ -88,7 +91,11 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
           userId: uid,
         },
       });
-      const data = await fetchAirTable("POST", "Miscellaneous", body);
+      const data = await fetchAirTable({
+        method: "POST",
+        tableType: "Miscellaneous",
+        body,
+      });
       setItems([data, ...items]);
       showToast("success", "Item added!");
     } catch (error) {
@@ -105,10 +112,18 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
           userId: uid,
         },
       });
-      await fetchAirTable("POST", "Fridge", body);
+      await fetchAirTable({
+        method: "POST",
+        tableType: "Fridge",
+        body,
+      });
 
       // DELETE
-      await fetchAirTable("DELETE", "Miscellaneous", undefined, item.id);
+      await fetchAirTable({
+        method: "DELETE",
+        tableType: "Miscellaneous",
+        id: item.id,
+      });
       setItems((prev) => prev.filter((prevItem) => prevItem.id !== item.id));
       showToast("success", "Item added to your fridge!");
     } catch (error) {
@@ -122,7 +137,12 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...item.fields, ingredient },
       });
-      await fetchAirTable("PUT", "Miscellaneous", body, item.id);
+      await fetchAirTable({
+        method: "PUT",
+        tableType: "Miscellaneous",
+        body,
+        id: item.id,
+      });
       setItems((prev) =>
         prev.map((prevItem) =>
           prevItem.id === item.id
@@ -139,7 +159,11 @@ export const MiscellaneousContextProvider = ({ children }: ReactChildren) => {
   // 削除
   const clickTrashHandler = async (item: MyItemType) => {
     try {
-      await fetchAirTable("DELETE", "Miscellaneous", undefined, item.id);
+      await fetchAirTable({
+        method: "DELETE",
+        tableType: "Miscellaneous",
+        id: item.id,
+      });
       showToast("success", "Item deleted!");
       setItems((prev) => prev.filter((prevItem) => prevItem.id !== item.id));
     } catch (error) {

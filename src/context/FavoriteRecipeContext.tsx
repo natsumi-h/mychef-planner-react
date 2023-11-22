@@ -81,7 +81,10 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
   const getFavRecipes = async () => {
     setLoading(true);
     try {
-      const data = await fetchAirTable("GET", "Favorite");
+      const data = await fetchAirTable({
+        method: "GET",
+        tableType: "Favorite",
+      });
       setFavRecipes(data?.records);
     } catch (err: unknown) {
       setError("Something went wrong!");
@@ -96,12 +99,11 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
     );
     if (!favRecipe) return;
     try {
-      const data = await fetchAirTable(
-        "DELETE",
-        "Favorite",
-        undefined,
-        favRecipe.id
-      );
+      const data = await fetchAirTable({
+        method: "DELETE",
+        tableType: "Favorite",
+        id: favRecipe.id,
+      });
       showToast("success", "Removed from Favorite!");
       setFavRecipes((prev) =>
         prev.filter((recipe) => recipe.fields.recipeId !== recipeId)
@@ -128,7 +130,11 @@ export const FavoriteRecipeContextProvider = ({ children }: ReactChildren) => {
           userId: user?.uid,
         },
       });
-      const data = await fetchAirTable("POST", "Favorite", body);
+      const data = await fetchAirTable({
+        method: "POST",
+        tableType: "Favorite",
+        body,
+      });
 
       showToast("success", "Added to Favorite!");
       setFavRecipes((prev) => [data, ...prev]);

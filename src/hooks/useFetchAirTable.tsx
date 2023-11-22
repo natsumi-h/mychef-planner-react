@@ -3,6 +3,7 @@ import { airTableApiKey, airTableBaseId, airTableRoot } from "../config/config";
 import { AuthContext } from "../context/AuthContext";
 
 type Method = "GET" | "POST" | "DELETE" | "PUT";
+type TableType = "Dish" | "Favorite" | "Miscellaneous" | "Fridge";
 type RequestOptions = {
   method: Method;
   headers: {
@@ -12,16 +13,20 @@ type RequestOptions = {
   body?: string;
 };
 
+type ApiParams = {
+  method: Method;
+  tableType: TableType;
+  body?: string;
+  id?: string;
+};
+
 export const useFetchAirTable = () => {
   const { user } = useContext(AuthContext);
   const uid = user?.uid;
 
-  const fetchAirTable = async (
-    method: Method,
-    tableType: string,
-    body?: string,
-    id?: string
-  ) => {
+  const fetchAirTable = async (apiParams: ApiParams) => {
+    const { method, tableType, body, id } = apiParams;
+
     const getUrl = (method: Method) => {
       if (method == "GET") {
         return `${airTableRoot}${airTableBaseId}/${tableType}?filterByFormula=%7BuserId%7D+%3D+%22${uid}%22`;
@@ -47,14 +52,13 @@ export const useFetchAirTable = () => {
       }
 
       const res = await fetch(url, requestOptions);
-
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error);
       }
       return data;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 

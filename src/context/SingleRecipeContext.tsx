@@ -88,7 +88,10 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   //  getDishList
   const getDishList = async () => {
     try {
-      const data = await fetchAirTable("GET", "Dish");
+      const data = await fetchAirTable({
+        method: "GET",
+        tableType: "Dish",
+      });
       setDishList(data.records);
       return data.records;
     } catch (error) {
@@ -119,7 +122,11 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
           dish: title,
         },
       });
-      const data = await fetchAirTable("POST", "Dish", body);
+      const data = await fetchAirTable({
+        method: "POST",
+        tableType: "Dish",
+        body,
+      });
       setIsRecipeInDishList(true);
       showToast("success", "Item added to your shopping list!");
       setDishList((prev) => [...prev, data]);

@@ -65,7 +65,10 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
     setItems([]);
     setLoading(true);
     try {
-      const data = await fetchAirTable("GET", "Fridge");
+      const data = await fetchAirTable({
+        method: "GET",
+        tableType: "Fridge",
+      });
       setItems(data.records);
     } catch (error) {
       console.log(error);
@@ -85,7 +88,11 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
           userId: uid,
         },
       });
-      const data = await fetchAirTable("POST", "Fridge", body);
+      const data = await fetchAirTable({
+        method: "POST",
+        tableType: "Fridge",
+        body,
+      });
       setItems([data, ...items]);
       showToast("success", "Item added!");
     } catch (error) {
@@ -102,7 +109,12 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
       const body = JSON.stringify({
         fields: { ...item.fields, ingredient },
       });
-      await fetchAirTable("PUT", "Fridge", body, item.id);
+      await fetchAirTable({
+        method: "PUT",
+        tableType: "Fridge",
+        body,
+        id: item.id,
+      });
       setItems((prev) =>
         prev.map((prevItem) =>
           prevItem.id === item.id
@@ -119,8 +131,11 @@ export const FridgeContextProvider = ({ children }: ReactChildren) => {
   // 削除
   const clickTrashHandler = async (item: FridgeItemType) => {
     try {
-      await fetchAirTable("DELETE", "Fridge", undefined, item.id);
-
+      await fetchAirTable({
+        method: "DELETE",
+        tableType: "Fridge",
+        id: item.id,
+      });
       showToast("success", "Item deleted!");
       setItems((prev) => prev.filter((prevItem) => prevItem.id !== item.id));
     } catch (error) {
