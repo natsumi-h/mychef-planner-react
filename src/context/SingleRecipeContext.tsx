@@ -15,6 +15,7 @@ type SingleRecipeContextType = {
   isRecipeInDishList: boolean;
   dishList: DishType[];
   checkIfRecipeIsInDishList: () => Promise<void>;
+  stepsArray: string[];
 };
 
 const initialContext = {
@@ -41,6 +42,7 @@ const initialContext = {
       resolve();
     });
   },
+  stepsArray: [],
 };
 
 // 初期値を設定
@@ -70,6 +72,7 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
   const [isRecipeInDishList, setIsRecipeInDishList] = useState<boolean>(false);
   const { fetchSingleRecipe } = useFetchRecipe();
   const { fetchAirTable } = useFetchAirTable();
+  const [stepsArray, setStepsArray] = useState<string[]>([]);
 
   const getRecipe = async () => {
     setError("");
@@ -77,6 +80,16 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
     try {
       const data = await fetchSingleRecipe(pathId);
       setRecipe(data);
+      // convert steps into an array
+      const stepsArray: string[] = [];
+      data.analyzedInstructions?.forEach(
+        (instruction: Recipe["analyzedInstructions"][number]) => {
+          instruction?.steps?.forEach((step) => {
+            stepsArray?.push(step.step);
+          });
+        }
+      );
+      setStepsArray(stepsArray);
     } catch (err: unknown) {
       console.log(err);
       setError("Somwthing went wrong!");
@@ -152,6 +165,7 @@ export const SingleRecipeContextProvider = ({ children }: ReactChildren) => {
         isRecipeInDishList,
         dishList,
         checkIfRecipeIsInDishList,
+        stepsArray,
       }}
     >
       {children}

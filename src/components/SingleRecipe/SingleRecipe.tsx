@@ -20,7 +20,8 @@ import { SigninScreen } from "../../pages/SigninScreen";
 import { AuthContext } from "../../context/AuthContext";
 
 export const SingleRecipe = () => {
-  const { recipe, isLoading, error } = useContext(SingleRecipeContext);
+  const { recipe, isLoading, error, stepsArray } =
+    useContext(SingleRecipeContext);
   const { signInMode } = useContext(AuthContext);
   const {
     id,
@@ -29,20 +30,7 @@ export const SingleRecipe = () => {
     servings,
     readyInMinutes,
     extendedIngredients,
-    analyzedInstructions,
   } = recipe;
-
-
-  const getStepsArray = () => {
-    const stepsArray: string[] = [];
-    analyzedInstructions?.forEach((instruction) => {
-      instruction?.steps?.forEach((step) => {
-        stepsArray?.push(step.step);
-      });
-    });
-    return stepsArray;
-  };
-  const stepsArray = getStepsArray();
 
   return (
     <>
